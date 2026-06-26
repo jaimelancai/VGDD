@@ -1,4 +1,4 @@
-# Video Game Driven Development (VGDD) — Project Plan v2
+# Video Game Driven Development (VGDD) — Project Plan v3
 
 > An open-source, skills-based agentic framework that turns a **Game Design
 > Document** + a **Technical Specification** into a playable, deployable Unity
@@ -10,8 +10,12 @@ North stars: [`obra/Superpowers`](https://github.com/obra/Superpowers)
 distribution) and [`gsd-build/get-shit-done`](https://github.com/gsd-build/get-shit-done)
 (framework installed *into the user's project*, game lives beside it).
 
-**What changed from v1:** the five blocking decisions are now locked — see the
-changelog at the bottom. Headline: **Unity-first**, **monorepo/GSD-style**,
+**What changed from v2:** added a **tool-provisioning policy** (§7) — how the
+agent handles missing prerequisites like Git. Default is *detect-and-guide,
+never silently install*; install is opt-in and allowlisted; Unity is never
+auto-installed. See the changelog at the bottom.
+
+**Locked decisions (from v1→v2):** **Unity-first**, **monorepo/GSD-style**,
 **Scrum with a demo every sprint**, **local-git by default**, and a **graduated
 verification ladder** instead of assuming CI.
 
@@ -30,9 +34,11 @@ verification ladder** instead of assuming CI.
    each sprint; full unattended run is an explicit mode, not the default.
 4. **Engineering & QA first; Art & Audio later.** Early games use
    placeholder/programmer art and stub audio.
-5. **Never stall.** Thin specs are filled by Director-level defaults; missing
-   tooling (no remote, no CI, no GPU, no device) triggers graceful degradation,
-   not a halt.
+5. **Never stall, never overreach.** Thin specs are filled by Director-level
+   defaults; missing tooling (no remote, no CI, no GPU, no device) triggers
+   graceful degradation, not a halt. Missing *system tools* (e.g. Git) are
+   detected and the human is guided to install them — the agent does not
+   silently modify the host machine (see §7).
 6. **Agile loop, feature-atomic.** The smallest unit of work is *one feature
    playable in a playtest.* No XXL tasks inside an iteration.
 
@@ -159,7 +165,36 @@ supports — so the human knows exactly how much was actually verified.
 
 ---
 
-## 7. Sprint mechanics & task sizing (Q3)
+## 7. Tool-provisioning policy (host-system safety)
+
+Installing system software (Git, Node, a JDK) is categorically different from
+writing code inside a project: it's privileged, OS-specific, hard to cleanly
+undo, and exactly what a Head-of-Studio stakeholder should approve rather than
+discover afterward. A `tool-provisioning` skill governs this with a three-level
+policy, set in the tech spec / config:
+
+| Level | Behavior | Default for |
+|---|---|---|
+| **0 — Detect & guide** | Detect what's missing; stop and give the human the exact OS-specific install command. Never installs. | **Default**, and any detected local workstation |
+| **1 — Install w/ confirmation** | May install from a **narrow allowlist** of lightweight, reversible dev tools (Git, Node, common CLI utils) via the platform's standard package manager — announcing the exact command first and logging it. | Opt-in (`allow_tool_install: true`) |
+| **2 — Auto-install** | Installs allowlisted tools without per-item confirmation. | Ephemeral/CI/container contexts only |
+
+**Hard rules at every level:**
+- **Unity is never auto-installed.** It's large, license-gated,
+  version-sensitive, and Hub-managed — always human setup, with clear guidance.
+- Every install action is announced with its exact command and written to a
+  provisioning log in the Studio Bible.
+- The policy is **environment-aware**: permissive on disposable CI/containers,
+  conservative (Level 0) on a detected personal machine — even if a higher
+  level is configured, the agent surfaces what it's about to do.
+
+This protects the framework's "clone it and run" public-repo trust story:
+strangers running VGDD on their own machines should never have the host
+modified by surprise.
+
+---
+
+## 8. Sprint mechanics & task sizing (Q3)
 
 - **Atomic unit = one feature demoable in a playtest.** The Producer refuses XXL
   tasks inside a sprint and splits them into medium/small before work starts.
@@ -172,7 +207,7 @@ supports — so the human knows exactly how much was actually verified.
 
 ---
 
-## 8. Quality & evals (framework self-test)
+## 9. Quality & evals (framework self-test)
 
 - **Reference-game suite** in `evals/reference-games/`: tiny fully-specified
   briefs (Snake, one-screen platformer, match-3 micro-slice) the framework must
@@ -185,7 +220,7 @@ supports — so the human knows exactly how much was actually verified.
 
 ---
 
-## 9. Default behavior when the spec is thin
+## 10. Default behavior when the spec is thin
 
 An `intake` + Director chain produces defaults so the loop never stalls:
 missing platform → genre default (mobile-portrait for match-3); missing
@@ -196,7 +231,7 @@ is written into the Studio Bible** for the human to see and override.
 
 ---
 
-## 10. Phased delivery
+## 11. Phased delivery
 
 | Phase | Goal | "Done" looks like |
 |---|---|---|
@@ -213,7 +248,7 @@ reference game.* Get the loop genuinely working before adding breadth.
 
 ---
 
-## 11. Immediate next step
+## 12. Immediate next step
 
 Phase 0 deliverables, which I can draft next for your review:
 1. Repo skeleton (`.vgdd/` layout + game topology).
@@ -222,12 +257,24 @@ Phase 0 deliverables, which I can draft next for your review:
 4. First Director skills — **Technical Director**, **Game Design Director**,
    **QA Director**, **Producer** — as readable, testable `.md` files.
 5. The core-loop + sprint workflow skill.
+6. The **environment-detection + tool-provisioning** skill (Level 0 detect-and-
+   guide first; install levels stubbed for later), including the Unity-install
+   guidance path.
 
 Small enough to read and test before we commit to Phase 1.
 
 ---
 
-## Decision changelog (v1 → v2)
+## Decision changelog
+
+**v2 → v3**
+6. **Tool provisioning:** three-level policy — (0) detect-and-guide [default],
+   (1) install allowlisted dev tools with confirmation [opt-in], (2) auto-install
+   in CI/container contexts only. **Unity never auto-installed.** Every install
+   announced and logged; policy is environment-aware (conservative on detected
+   personal machines).
+
+**v1 → v2**
 
 1. **Engine:** Unity-first (medium-tier, industry standard). Godot overlay in
    Phase 6, Unreal later. Verification ladder designed around Unity batch mode.
