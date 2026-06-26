@@ -1,212 +1,243 @@
-# Video Game Driven Development (VGDD) — Project Plan v1
+# Video Game Driven Development (VGDD) — Project Plan v2
 
 > An open-source, skills-based agentic framework that turns a **Game Design
-> Document** + a **Technical Specification** into a playable, deployable video
+> Document** + a **Technical Specification** into a playable, deployable Unity
 > game, by giving a coding agent (Claude Code first) the skills, roles, and
 > workflow of a full game studio.
 
-Reference north stars: [`obra/Superpowers`](https://github.com/obra/Superpowers)
-(skills-as-markdown, auto-triggering workflow, plugin distribution) and
-[`gsd-build/get-shit-done`](https://github.com/gsd-build/get-shit-done). We lean
-**Superpowers-style**: markdown skills + a thin bootstrap, minimal scripting,
-no heavy custom runtime.
+North stars: [`obra/Superpowers`](https://github.com/obra/Superpowers)
+(markdown skills + thin bootstrap + auto-triggering workflow + plugin
+distribution) and [`gsd-build/get-shit-done`](https://github.com/gsd-build/get-shit-done)
+(framework installed *into the user's project*, game lives beside it).
+
+**What changed from v1:** the five blocking decisions are now locked — see the
+changelog at the bottom. Headline: **Unity-first**, **monorepo/GSD-style**,
+**Scrum with a demo every sprint**, **local-git by default**, and a **graduated
+verification ladder** instead of assuming CI.
 
 ---
 
 ## 1. Guiding principles
 
-1. **Markdown-first, script-light.** The product *is* a library of skills and
-   role definitions in `.md`. Scripts/hooks exist only where markdown cannot
-   (git automation, MCP glue, eval running). This keeps it forkable, auditable,
-   and harness-portable like Superpowers.
-2. **The game is the deliverable.** Every layer (roles, ceremonies, tracking)
-   exists to ship a *functional, testable build*. We resist building studio
-   theater that doesn't move a build forward.
+1. **Markdown-first, script-light.** The product *is* a library of skill and
+   role `.md` files plus a thin bootstrap. Scripts/hooks exist only where
+   markdown can't reach: git automation, MCP glue, Unity batch-mode invocation,
+   eval running.
+2. **The game is the deliverable.** Every role and ceremony exists to move a
+   *functional, testable build* forward. No studio theater.
 3. **Human = Stakeholder + Head of Studio.** Always able to intervene, never
-   *required* to. A "no-collaboration" mode must run start → first beta on its
-   own.
-4. **Engineering & QA first, Art & Audio later.** Phase ordering is deliberate;
-   early games use placeholder/programmer art and stub audio.
-5. **Default-on sane behavior.** A sparse spec must still produce a sensible
-   game via Director-level defaults, not a stall asking for more input.
-6. **Agile loop.** info-gathering → planning → design → implementation →
-   review → test → release, run as sprints with a backlog, branches, and
-   reviewable artifacts.
+   required to. But the default cadence (Scrum) *expects* a demo + feedback
+   each sprint; full unattended run is an explicit mode, not the default.
+4. **Engineering & QA first; Art & Audio later.** Early games use
+   placeholder/programmer art and stub audio.
+5. **Never stall.** Thin specs are filled by Director-level defaults; missing
+   tooling (no remote, no CI, no GPU, no device) triggers graceful degradation,
+   not a halt.
+6. **Agile loop, feature-atomic.** The smallest unit of work is *one feature
+   playable in a playtest.* No XXL tasks inside an iteration.
 
 ---
 
-## 2. The core loop (what the system actually does)
+## 2. The core loop
 
 ```
    ┌─────────────────────────────────────────────────────────────┐
-   │  INTAKE        Read GDD + Tech Spec. Fill gaps via defaults    │
-   │                or ask the stakeholder (configurable).          │
+   │  INTAKE        Read GDD + Tech Spec. Detect environment       │
+   │                (git remote? CI? GPU? device?). Fill spec gaps  │
+   │                via defaults or ask the stakeholder.            │
    ├─────────────────────────────────────────────────────────────┤
-   │  PRE-PRODUCTION  Directors define architecture, tech stack,    │
-   │  (Phase 0 of a   art/QA strategy, milestone plan, backlog.     │
-   │   game)          Produce a Studio Bible + Architecture Doc.     │
+   │  PRE-PRODUCTION  Directors define architecture, Unity project  │
+   │                  setup, test strategy, milestone plan, backlog.│
+   │                  Output: Studio Bible + Architecture Doc.       │
    ├─────────────────────────────────────────────────────────────┤
-   │  SPRINT LOOP   For each sprint:                                │
-   │                 plan → implement (subagent per task) →         │
-   │                 review (2-stage) → test (automated + smoke) →  │
-   │                 build a playable demo → stakeholder checkpoint  │
+   │  SPRINT LOOP   Per sprint (Scrum):                            │
+   │                 plan (split to ≤ medium tasks) →               │
+   │                 implement (subagent per feature task) →        │
+   │                 review (2-stage) →                             │
+   │                 test (verification ladder, see §6) →           │
+   │                 build a PLAYABLE DEMO →                        │
+   │                 stakeholder demo + feedback → backlog update    │
    ├─────────────────────────────────────────────────────────────┤
-   │  RELEASE       Cut a build for target platform(s), run the     │
-   │                release checklist, tag, produce a beta.         │
+   │  RELEASE       Cut build for target platform(s), run release   │
+   │                checklist, tag, produce a beta.                 │
    └─────────────────────────────────────────────────────────────┘
 ```
 
-The loop continues sprint-over-sprint until the **exit condition** is met
-(default: a playable first beta meeting the GDD's "minimum shippable" criteria),
-or the stakeholder halts it.
+**Exit condition (default):** first beta meeting the GDD's "minimum shippable"
+criteria. The stakeholder can halt earlier, run sprint-by-sprint with demos
+(default), or authorize unattended run to first beta.
 
 ---
 
 ## 3. The studio as a role/skill hierarchy
 
-Two layers, both expressed as markdown so they auto-trigger and compose:
+**Directors (pre-production + cross-sprint governance):**
+Technical Director, Game Design Director, QA Director, Producer
+(+ Art Director & Audio Director arriving in Phase 5).
 
-**Directors (pre-production + cross-sprint governance)** — set strategy and
-guardrails, invoked at phase boundaries and big decisions:
-- Technical Director — architecture, tech stack, engine config, build pipeline
-- Game Design Director — pillars, loop, progression, "minimum shippable" def.
-- QA Director — test strategy, quality gates, definition of done
-- Art Director *(Phase 4)* — visual targets, placeholder-art policy early
-- Audio Director *(Phase 4)* — audio targets, stub policy early
-- Producer — backlog, sprint cadence, tracking-tool sync, the loop itself
+**Engineers & specialists (per-task subagents):**
+Gameplay, UI, Backend, Rendering, Multiplayer, Networking, Tools/Build,
+QA Tester, Automation/Test, Release.
 
-**Engineers & specialists (per-task execution)** — invoked as subagents:
-- Gameplay Engineer, UI Engineer, Backend Engineer, Rendering Engineer,
-  Multiplayer Engineer, Networking Engineer, Tools/Build Engineer, QA Tester,
-  Automation/Test Engineer, Release Engineer.
-
-Each role is a skill file: *when it triggers, what it owns, its checklist, its
-definition of done, and which other skills it may call.* Roles are
-**engine-agnostic at the top, engine-specialized underneath** (e.g.
-`gameplay-engineer` → `gameplay-engineer.unity` overlay).
+Each role is a skill file declaring: trigger conditions, what it owns, its
+checklist, its definition of done, and which skills it may call. Roles are
+**engine-agnostic at the top with a Unity overlay underneath**
+(`gameplay-engineer` + `gameplay-engineer.unity`), so Godot/Unreal overlays can
+be added later without rewriting the role logic.
 
 ---
 
-## 4. Repository layout (target end-state)
+## 4. Repository & game topology (GSD-style monorepo)
+
+The framework is **installed into the user's project**; the generated Unity game
+lives **beside it in the same working tree**.
 
 ```
-vgdd/
-├── README.md                      # what it is, quickstart, philosophy
-├── CLAUDE.md / AGENTS.md          # bootstrap: "check skills before acting"
-├── .claude-plugin/                # Claude Code plugin manifest (Phase 1)
-├── docs/                          # methodology, role catalog, how-to
-├── skills/
-│   ├── workflow/                  # the loop: intake, sprint, review, release
-│   ├── directors/                 # director role skills
-│   ├── engineering/               # engineer role skills (+ engine overlays)
-│   ├── qa/                        # test strategy, smoke tests, eval hooks
-│   └── meta/                      # writing-skills, using-vgdd bootstrap
-├── templates/
-│   ├── game-design-doc.md         # GDD template the human fills
-│   ├── tech-spec.md               # tech spec template
-│   ├── studio-bible.md            # generated pre-production output
-│   └── backlog/ ticket templates  # epic/story/task formats
-├── integrations/                  # MCP/tracking glue (GitHub, Jira, Trello…)
-├── evals/                         # test-case games + automated quality checks
-│   └── reference-games/           # tiny specs the system must be able to ship
-├── hooks/ scripts/                # minimal automation only
-└── examples/                      # worked example (the match-3 brief)
+my-game/                            # the user's project (git-init'd here)
+├── .vgdd/                          # the installed framework
+│   ├── skills/ {workflow, directors, engineering, qa, meta}
+│   ├── templates/ {gdd, tech-spec, studio-bible, tickets}
+│   ├── integrations/               # MCP/tracking adapters
+│   ├── evals/reference-games/      # framework self-test briefs
+│   └── hooks/ scripts/             # minimal automation (incl. Unity batch)
+├── design/
+│   ├── game-design.md              # the human's GDD
+│   └── tech-spec.md                # the human's tech spec
+├── studio/
+│   ├── studio-bible.md             # generated pre-production output
+│   └── backlog.md                  # local backlog (when no tracker connected)
+├── GameProject/                    # the actual Unity project
+│   ├── Assets/  Packages/  ProjectSettings/
+│   └── Assets/Editor/VGDD/         # static methods Unity batch-mode calls
+└── builds/                         # cut player builds per platform
 ```
+
+The framework's own source repo (what gets published publicly) mirrors `.vgdd/`
+plus docs, examples, and the plugin manifest.
 
 ---
 
 ## 5. Tracking, branching & review (the human's window in)
 
-- **Tracking via MCP/connectors.** A `producer` skill drives an integration
-  adapter so backlog → in-progress → done is mirrored to GitHub Issues/Projects
-  (default), or Jira/GitLab/Trello. Adapter pattern keeps one skill, many
-  back-ends. Default fallback = GitHub Issues + a Markdown backlog committed to
-  the repo, so it works with zero external setup.
-- **Branching strategy (default).** `main` (releases) ← `develop` (integration)
-  ← `sprint/<n>` ← `task/<ticket-id>`. Each task lands as a reviewable PR;
-  sprint demos are tagged. This gives the human history *and* review gates.
-- **Review gates.** Two-stage review per task (spec-compliance, then code
-  quality) — adapted from Superpowers — plus a sprint-end stakeholder
-  checkpoint that can be skipped in autonomous mode.
+**Tracking — local-first, remote-optional (Q4).**
+- **Default / zero-config:** no remote needed. The Producer skill runs
+  `git init` locally and keeps `studio/backlog.md` as committed markdown that
+  moves tickets backlog → in-progress → review → done.
+- **Upgrade path:** if a GitHub MCP/connector is present, mirror to GitHub
+  Issues/Projects. Jira, GitLab, Trello are opt-in adapters behind the same
+  Producer interface.
+
+**Branching (default):** `main` (releases) ← `develop` (integration) ←
+`sprint/<n>` ← `task/<ticket-id>`. Each feature task is a reviewable diff; sprint
+demos are tagged. Works identically with a remote or purely local.
+
+**Review gates:** two-stage per task (spec-compliance, then code quality) +
+a **sprint-end demo checkpoint** — the Scrum demo where the stakeholder plays
+the build and feeds back. Skippable only in explicit unattended mode.
 
 ---
 
-## 6. Quality & evals (how we trust the system)
+## 6. Verification ladder (Q5 — graceful, environment-aware)
 
-This is the part that makes it a *product* and not a demo:
-- **Reference-game suite.** A set of tiny, fully-specified briefs (e.g. a
-  Snake clone, a one-screen platformer, a match-3 micro-slice) that the system
-  must take from spec → playable build. These are the regression tests for the
-  *framework itself*.
-- **Automated quality checks.** For each reference game: does it build? do unit
-  tests pass? does a headless/smoke harness confirm the core loop runs (player
-  can move/score/win-lose)? We gate framework changes on these.
-- **Definition of Done** is encoded per role and checked by the QA Director
-  skill, not left to vibes.
+The framework **detects what's available and climbs as high as it can**, never
+failing because a higher tier is missing.
 
-Engine choice matters here: **automated, headless verification of a real game
-build is the single hardest technical risk.** See open questions.
-
----
-
-## 7. Phased delivery (so you can review/test each step)
-
-Each phase ends with something you can run and judge.
-
-| Phase | Goal | Key deliverables | "Done" looks like |
+| Tier | Needs | What runs | Always on? |
 |---|---|---|---|
-| **0. Foundations** | Repo skeleton + methodology | Repo layout, `CLAUDE.md` bootstrap, GDD & Tech-Spec templates, the core-loop doc, contribution + skill-writing guide | A human can clone it; agent reads bootstrap and follows the loop on a toy prompt (no real build yet) |
-| **1. Engineering spine (one engine)** | End-to-end on a single stack | Director skills (Tech/GameDesign/QA/Producer), core engineer skills, sprint workflow, branching, **one reference game shippable** | System takes a tiny brief → playable build on the chosen engine, autonomously |
-| **2. QA & evals** | Trustworthy & self-testing | Eval harness, reference-game suite, automated quality gates, smoke-test skill | CI-style check: framework changes pass the reference-game suite |
-| **3. Tracking & collaboration** | Human-in-the-loop tooling | MCP/tracking adapters (GitHub first), checkpointing, review ceremonies, autonomous vs collaborative modes | Stakeholder watches tickets flow board-to-done; can review PRs or let it run |
-| **4. Multi-engine + scale** | Breadth | Second engine overlay, multiplayer/networking/backend depth, the match-3 example fully worked | The Candy-Crush-style example brief produces a 100-level-capable slice |
-| **5. Art & Audio** | Creative support | Art/Audio Directors, asset-pipeline skills, asset-intake from stakeholder, generative-asset hooks | Placeholder→real asset workflow; stakeholder-supplied assets integrated |
-| **6. Polish & distribution** | Public-ready | Plugin marketplace packaging, multi-harness support, docs site, examples gallery | Anyone can install and ship a small game |
+| **0 — Unit/Integration** | Unity + batch mode (xvfb if headless, no GPU) | EditMode + PlayMode tests via `Unity -runTests -batchmode`, NUnit XML out. Frontend (UI/gameplay) and backend logic both covered. | **Yes — the floor.** |
+| **1 — Build + smoke** | Graphical execution available | Build a player via `-executeMethod`, launch it, run an automated smoke test confirming the core loop runs (move / score / win-lose). | When GPU/display present |
+| **2 — Device playtest** | Android device or iOS/OS simulator connected | Deploy to device/simulator; automated + human playtest. | When a device is attached |
+| **3 — CI escalation** | GitHub Actions or Jenkins detected | Push tiers 0–2 onto CI for gated, repeatable runs. | When CI exists |
 
-**My recommendation:** lock Phase 0 + Phase 1 scope tightly around *one engine
-and one reference game*. Breadth is the enemy of a working first beta.
+Two Unity-specific constraints baked into the relevant skills:
+- Headless servers need `xvfb-run` in front of the Unity command (no real GPU).
+- `-executeMethod` only calls **parameterless static methods**; pass arguments
+  via env vars / `Environment.GetCommandLineArgs()`, not method parameters.
 
----
-
-## 8. Default behavior when the spec is thin
-
-A `intake` + Director chain produces defaults so the loop never stalls:
-- Missing platform → default per genre (e.g. mobile-portrait for match-3).
-- Missing engine → Tech Director picks from a documented default matrix.
-- Missing scope → Game Design Director defines a "minimum shippable" slice and
-  defers the rest to the backlog.
-- All defaults are **written into the generated Studio Bible** so the human can
-  see and override them.
+The QA Director records, in the Studio Bible, which tier the current environment
+supports — so the human knows exactly how much was actually verified.
 
 ---
 
-## 9. Open questions (these change the architecture — your call)
+## 7. Sprint mechanics & task sizing (Q3)
 
-1. **First engine.** Your example says Unity. Unity is industry-standard but
-   *hard to build/test headlessly in CI* and license-encumbered. A
-   code-first engine (e.g. Godot, or an HTML5/JS stack like Phaser) is far
-   easier to make the agent build, run, and auto-verify — which Phase 2 leans
-   on heavily. **Strong recommendation: prove the whole loop on a
-   code-first/web engine in Phases 1–2, then add Unity as an overlay in
-   Phase 4.** Do you want to (a) hold to Unity from the start, or (b) start
-   code-first and add Unity later?
-2. **Where does the *generated game* live?** Same repo as the framework
-   (monorepo, simplest to start) or each game scaffolded into its own repo by
-   the system? This affects branching and tracking design.
-3. **Autonomy default.** When run with no human input, should it stop at
-   "first playable" for review, or push all the way to "first beta" unattended?
-4. **Default tracking back-end.** GitHub Issues/Projects as the zero-config
-   default, with Jira/GitLab/Trello as opt-in adapters — agreed?
-5. **Build/test environment.** What can the agent actually run during dev — a
-   CI runner, your local machine, a container? This determines how real the
-   automated verification in Phase 2 can be.
+- **Atomic unit = one feature demoable in a playtest.** The Producer refuses XXL
+  tasks inside a sprint and splits them into medium/small before work starts.
+- **User-configurable scope:** the human sets how many / what kind of features
+  per iteration; the default just caps maximum task size and protects the
+  "one playable feature" floor.
+- **Demo every sprint:** from the first playable build onward, each sprint ends
+  in a demo. Stakeholder feedback is captured as backlog items and re-enters
+  planning — true Scrum, not a one-shot generator.
 
 ---
 
-## 10. Suggested immediate next step
+## 8. Quality & evals (framework self-test)
 
-Approve scope for **Phase 0** and answer Q1 (engine) + Q2 (repo topology).
-With those two locked, I can draft the Phase 0 deliverables in detail: the repo
-skeleton, the `CLAUDE.md` bootstrap, the GDD and Tech-Spec templates, and the
-first three Director skill files — small enough for you to read and test before
-we commit to Phase 1.
+- **Reference-game suite** in `evals/reference-games/`: tiny fully-specified
+  briefs (Snake, one-screen platformer, match-3 micro-slice) the framework must
+  take spec → playable Unity build. These are regression tests for *the
+  framework itself.*
+- **Gating:** a framework change is accepted only if the suite still builds and
+  passes Tier-0 (and Tier-1 where the dev environment allows).
+- **Definition of Done** is encoded per role and checked by the QA Director, not
+  left to judgment.
+
+---
+
+## 9. Default behavior when the spec is thin
+
+An `intake` + Director chain produces defaults so the loop never stalls:
+missing platform → genre default (mobile-portrait for match-3); missing
+tooling/versions → Tech Director default matrix (pinned Unity LTS, render
+pipeline, input system); missing scope → Game Design Director defines a
+"minimum shippable" slice and defers the rest to the backlog. **Every default
+is written into the Studio Bible** for the human to see and override.
+
+---
+
+## 10. Phased delivery
+
+| Phase | Goal | "Done" looks like |
+|---|---|---|
+| **0. Foundations** | Repo skeleton + methodology + templates + bootstrap | Clone it; agent reads bootstrap, follows the loop on a toy prompt (no real Unity build yet) |
+| **1. Engineering spine (Unity)** | End-to-end on Unity, one reference game | System takes a tiny brief → playable Unity build, autonomously, Tier-0 verified |
+| **2. QA & evals** | Self-testing & trustworthy | Reference-game suite + verification ladder Tiers 0–1 gate framework changes |
+| **3. Tracking & collaboration** | Human-in-the-loop, Scrum demos | Local backlog flow + GitHub adapter; sprint demos & PR review; unattended mode toggle |
+| **4. Depth & device** | Backend/multiplayer/networking + Tier-2 device playtest | Match-3 example produces a 100-level-capable slice, testable on an Android device/sim |
+| **5. Art & Audio** | Creative support | Art/Audio Directors; placeholder→real asset pipeline; stakeholder-supplied assets integrated |
+| **6. Multi-engine + distribution** | Breadth + public-ready | Godot overlay (then Unreal later); plugin marketplace packaging; docs & examples gallery |
+
+**Recommendation unchanged:** lock Phase 0 + Phase 1 tight around *Unity + one
+reference game.* Get the loop genuinely working before adding breadth.
+
+---
+
+## 11. Immediate next step
+
+Phase 0 deliverables, which I can draft next for your review:
+1. Repo skeleton (`.vgdd/` layout + game topology).
+2. `CLAUDE.md` / `AGENTS.md` bootstrap (the "check skills before acting" spine).
+3. GDD template and Tech-Spec template (with the thin-spec defaults baked in).
+4. First Director skills — **Technical Director**, **Game Design Director**,
+   **QA Director**, **Producer** — as readable, testable `.md` files.
+5. The core-loop + sprint workflow skill.
+
+Small enough to read and test before we commit to Phase 1.
+
+---
+
+## Decision changelog (v1 → v2)
+
+1. **Engine:** Unity-first (medium-tier, industry standard). Godot overlay in
+   Phase 6, Unreal later. Verification ladder designed around Unity batch mode.
+2. **Game topology:** GSD-style — framework installed into the user's project,
+   generated game lives beside it (monorepo working tree).
+3. **Autonomy:** Scrum default with a demo + stakeholder feedback every sprint
+   from first playable; unattended run-to-beta is an explicit opt-in mode.
+   Atomic task = one playtest-demoable feature; no XXL tasks per iteration.
+4. **Tracking/VCS:** local `git init` by default, no remote required; GitHub
+   (then Jira/GitLab/Trello) as opt-in adapters.
+5. **Build/test env:** four-tier verification ladder — unit/integration always
+   (Tier 0), build+smoke with a display (1), device/simulator playtest (2), CI
+   escalation to GitHub Actions/Jenkins when present (3).
