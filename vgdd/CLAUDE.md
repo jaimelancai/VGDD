@@ -5,7 +5,7 @@ Development)**: a skills-based methodology that turns a Game Design Document and
 a Technical Specification into a playable, deployable Unity game by running the
 workflow of a full game studio.
 
-**Before doing anything else, read `.vgdd/skills/meta/using-vgdd.md`.** It is the
+**Before doing anything else, read `.vgdd/skills/meta-using-vgdd/SKILL.md`.** It is the
 map to every skill and the order they fire in. Do not start designing or writing
 code before you have read it.
 
@@ -16,7 +16,7 @@ code before you have read it.
 **Check for a relevant VGDD skill before every task, and follow it.** The skills
 are mandatory workflows, not suggestions. If a skill applies to what you are
 about to do, you follow it. If you are unsure whether one applies, go read
-`.vgdd/skills/meta/using-vgdd.md` and find out.
+`.vgdd/skills/meta-using-vgdd/SKILL.md` and find out.
 
 ---
 
@@ -94,4 +94,4 @@ the game you are building lives beside it in the same working tree.
 - `GameProject/` — the actual Unity project you build.
 - `builds/` — player builds you cut, per platform.
 
-Start by reading `.vgdd/skills/meta/using-vgdd.md`.
+Start by reading `.vgdd/skills/meta-using-vgdd/SKILL.md`.

@@ -66,12 +66,12 @@ deletes your work without asking. See the autonomy contract in
 
 ```
 .vgdd/
-├── skills/
-│   ├── workflow/      # the loop: intake, sprint, release, env-detection, provisioning
-│   ├── directors/     # Technical, Game Design, QA, Producer
-│   ├── engineering/   # Gameplay, UI, Backend, Rendering, Multiplayer, Networking, Tools
-│   ├── qa/            # test strategy, smoke tests, eval hooks
-│   └── meta/          # using-vgdd (the map), writing-skills
+├── skills/            # flat skill folders, grouped by name prefix:
+│   ├── meta-*/        #   the skill system (meta-using-vgdd = the map)
+│   ├── workflow-*/    #   the loop: intake, sprint, release, env-detection, provisioning
+│   ├── director-*/    #   Technical, Game Design, QA, Producer
+│   ├── engineer-*/    #   Gameplay, UI, Backend, Rendering, Multiplayer, Networking, Tools
+│   └── qa-*/          #   test strategy, smoke tests, eval hooks
 ├── templates/         # GDD, tech-spec, studio-bible, ticket formats
 ├── integrations/      # MCP/tracking adapters (GitHub first; Jira/GitLab/Trello)
 ├── evals/             # reference games the framework must be able to ship
@@ -79,13 +79,19 @@ deletes your work without asking. See the autonomy contract in
 └── docs/              # methodology, role catalog, roadmap
 ```
 
+Each skill is a folder with a `SKILL.md`. Claude Code discovers skills one level
+deep, so grouping lives in the **name prefix**, not in nested folders — see
+[`skills/README.md`](skills/README.md).
+
 ## A note on skill naming
 
-Following Superpowers, workflow skills are named as **action verbs**
-(`intake`, `sprint`, `release`) because action names trigger more reliably.
-Role skills keep **role nouns** (`technical-director`, `gameplay-engineer`)
-because that's how a studio refers to them and how the GDD/spec will reference
-them. This mix is deliberate, not drift.
+Every skill is a folder with a `SKILL.md`, named with a **layer prefix** so the
+grouping survives Claude Code's flat one-level discovery: `workflow-` skills are
+action verbs (`workflow-intake`, `workflow-sprint`) because actions trigger
+reliably; `director-` and `engineer-` skills keep role nouns
+(`director-technical`, `engineer-gameplay`) because that's how a studio refers to
+them and how the GDD/spec will reference them. The prefix mix is deliberate, not
+drift — see [`skills/README.md`](skills/README.md).
 
 ## Philosophy
 

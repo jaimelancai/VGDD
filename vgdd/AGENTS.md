@@ -6,7 +6,7 @@ a playable, deployable Unity game.
 
 The full bootstrap — including the **autonomy contract** that governs when you
 decide-and-continue versus stop-and-ask — lives in [`CLAUDE.md`](./CLAUDE.md).
-**Read it now**, then read `.vgdd/skills/meta/using-vgdd.md`.
+**Read it now**, then read `.vgdd/skills/meta-using-vgdd/SKILL.md`.
 
 The single operating rule: **check for a relevant VGDD skill before every task,
 and follow it.** The skills are mandatory workflows, not suggestions.

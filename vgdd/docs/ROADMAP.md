@@ -17,7 +17,7 @@ This tracks the **framework build-out**, not the loop the framework runs.
 
 1. Repo skeleton + game topology — **done (this commit)**
 2. Bootstrap: `CLAUDE.md` / `AGENTS.md` with the autonomy contract — **done**
-3. `using-vgdd` map meta-skill — **done**
+3. `meta-using-vgdd` map skill (folder + SKILL.md) — **done**
 4. Input templates: GDD + Tech-Spec — *next*
 5. Core-loop + sprint workflow skill — *next*
 6. Four Director skills (Technical, Game Design, QA, Producer) — *next*

@@ -1,3 +1,8 @@
+---
+name: meta-using-vgdd
+description: The map of the VGDD game-studio methodology — every skill, when it fires, and the studio loop order. Use this skill at the very start of ANY game-development task in a VGDD project, and whenever you are unsure which VGDD skill applies, before designing or writing any game code. Read it first.
+---
+
 # Using VGDD
 
 **This is the map.** It tells you what skills exist, when each fires, and the
@@ -19,25 +24,25 @@ skill applies, and if so you follow it. Skills are mandatory workflows.
 
 Two layers of skills:
 
-- **Directors** (`.vgdd/skills/directors/`) — set strategy and guardrails at
+- **Directors** (`director-*` skills) — set strategy and guardrails at
   phase boundaries and big decisions. Invoked in pre-production and consulted
   across sprints.
-- **Engineers & specialists** (`.vgdd/skills/engineering/`, `.vgdd/skills/qa/`)
-  — do the per-task work, dispatched as subagents during sprints.
+- **Engineers & specialists** (`engineer-*` and `qa-*` skills) — do the
+  per-task work, dispatched as subagents during sprints.
 
-Plus **workflow** skills (`.vgdd/skills/workflow/`) that drive the loop itself,
-and **meta** skills (`.vgdd/skills/meta/`) like this one.
+Plus **workflow** skills (`workflow-*` skills) that drive the loop itself,
+and **meta** skills (`meta-*` skills) like this one.
 
 ---
 
 ## The studio loop (the order things happen)
 
 ### Phase A — Intake
-- **`workflow/intake`** **[planned]** — Read `design/game-design.md` and
+- **`workflow-intake`** **[planned]** — Read `design/game-design.md` and
   `design/tech-spec.md`. Run environment detection. Fill spec gaps with
   documented defaults, logging each as an assumption. Never stall on a thin
   spec.
-- **`workflow/environment-detection`** **[planned]** — Detect git remote, CI,
+- **`workflow-environment-detection`** **[planned]** — Detect git remote, CI,
   GPU/display, connected devices, a working Unity, and any connected **engine
   Editor MCP** (e.g. a Unity Editor MCP server). Set the verification tier, note
   whether an Editor MCP is in the loop, and set the tool-provisioning level.
@@ -45,20 +50,20 @@ and **meta** skills (`.vgdd/skills/meta/`) like this one.
 
 ### Phase B — Pre-production (Directors)
 Run once at project start; revisited when the GDD changes materially.
-- **`directors/technical-director`** **[planned]** — architecture, Unity setup
+- **`director-technical`** **[planned]** — architecture, Unity setup
   (LTS version, render pipeline, input system), build pipeline.
-- **`directors/game-design-director`** **[planned]** — pillars, core loop,
+- **`director-game-design`** **[planned]** — pillars, core loop,
   progression, the "minimum shippable" definition.
-- **`directors/qa-director`** **[planned]** — test strategy, quality gates,
+- **`director-qa`** **[planned]** — test strategy, quality gates,
   definition of done, which verification tier this environment supports.
-- **`directors/producer`** **[planned]** — backlog, sprint cadence, tracking-
+- **`director-producer`** **[planned]** — backlog, sprint cadence, tracking-
   tool sync, branching. Owns the loop.
 
 Output: a completed `studio/studio-bible.md` (architecture + plan + assumptions)
 and an initial `studio/backlog.md`.
 
 ### Phase C — Sprint loop (repeat)
-Driven by **`workflow/sprint`** **[planned]**:
+Driven by **`workflow-sprint`** **[planned]**:
 1. **Plan** — Producer pulls items, splits anything larger than medium. Atomic
    unit = one feature demoable in a playtest. No XXL tasks in a sprint.
 2. **Implement** — dispatch a subagent per task to the right specialist skill
@@ -71,7 +76,7 @@ Driven by **`workflow/sprint`** **[planned]**:
 6. **Update backlog** — feedback and discovered work become backlog items.
 
 ### Phase D — Release
-- **`workflow/release`** **[planned]** — cut a build per target platform, run
+- **`workflow-release`** **[planned]** — cut a build per target platform, run
   the release checklist, tag, produce a beta. Crossing to an external store or
   deploy hits the escalation line — stop and ask.
 
@@ -110,7 +115,7 @@ the loop — so the stakeholder knows how much was actually verified.
 
 ## Tool provisioning (touching the host machine)
 
-Governed by **`workflow/tool-provisioning`** **[planned]**. Three levels:
+Governed by **`workflow-tool-provisioning`** **[planned]**. Three levels:
 
 - **Level 0 — detect & guide** (default): if a tool is missing, give the human
   the exact install command; never install it yourself.
@@ -128,8 +133,8 @@ Studio Bible.
 ## Quick reference: where to look
 
 - Autonomy rules → `/CLAUDE.md`
-- This map → `.vgdd/skills/meta/using-vgdd.md`
-- How to author a new skill → `.vgdd/skills/meta/writing-skills.md` **[planned]**
+- This map → `.vgdd/skills/meta-using-vgdd/SKILL.md`
+- How to author a new skill → `.vgdd/skills/meta-writing-skills/SKILL.md` **[planned]**
 - Inputs you read → `design/game-design.md`, `design/tech-spec.md`
 - Your outputs → `studio/studio-bible.md`, `studio/backlog.md`, `GameProject/`,
   `builds/`
