@@ -38,9 +38,10 @@ and **meta** skills (`.vgdd/skills/meta/`) like this one.
   documented defaults, logging each as an assumption. Never stall on a thin
   spec.
 - **`workflow/environment-detection`** **[planned]** — Detect git remote, CI,
-  GPU/display, connected devices, and installed tools (incl. a working Unity).
-  Set the verification tier and the tool-provisioning level. Record findings in
-  the Studio Bible.
+  GPU/display, connected devices, a working Unity, and any connected **engine
+  Editor MCP** (e.g. a Unity Editor MCP server). Set the verification tier, note
+  whether an Editor MCP is in the loop, and set the tool-provisioning level.
+  Record findings in the Studio Bible.
 
 ### Phase B — Pre-production (Directors)
 Run once at project start; revisited when the GDD changes materially.
@@ -90,8 +91,20 @@ Climb as high as the detected environment allows; the floor is always available.
 - **Tier 3 — CI escalation** (needs CI): push tiers 0–2 onto GitHub Actions or
   Jenkins for gated, repeatable runs.
 
-The QA Director records which tier is active so the stakeholder knows how much
-was actually verified.
+**Editor MCP (engine-in-the-loop) — a cross-tier capability, when available.**
+If an engine Editor MCP is connected (e.g. a Unity Editor MCP server) and a live
+Editor is running, you can drive the Editor directly: enter Play Mode, inspect
+scene / GameObject state, set up test conditions, trigger gameplay actions, and
+read results back. This *enriches* Tiers 0–2 with interactive, human-QA-like
+verification — record it under the active tier. It is **not** the floor (it
+needs a running Editor plus the MCP server, so it is unavailable on bare CI) and
+**not** the sole gate for changes (an interactive session is less deterministic
+than batch runs — keep the batch/build tiers as the gating mechanism). Detect
+its presence in environment-detection and note it in the Studio Bible. This is
+the same MCP mechanism used for tracking, just pointed at the engine.
+
+The QA Director records which tier is active — and whether an Editor MCP is in
+the loop — so the stakeholder knows how much was actually verified.
 
 ---
 
