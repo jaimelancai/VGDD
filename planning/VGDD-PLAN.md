@@ -163,6 +163,15 @@ Two Unity-specific constraints baked into the relevant skills:
 The QA Director records, in the Studio Bible, which tier the current environment
 supports — so the human knows exactly how much was actually verified.
 
+**Editor MCP (engine-in-the-loop) — cross-tier, when available.** If an engine
+Editor MCP (e.g. a Unity Editor MCP server) is connected to a live Editor, the
+agent can drive it directly — enter Play Mode, inspect scene state, set up
+conditions, trigger actions, read results — enriching Tiers 0–2 with
+interactive, human-QA-like verification. It is not the floor (needs a running
+Editor + MCP, so absent on bare CI) and not the sole gate (less deterministic
+than batch runs; gating stays on batch/build tiers). Detected by
+environment-detection. Same MCP mechanism as tracking, pointed at the engine.
+
 ---
 
 ## 7. Tool-provisioning policy (host-system safety)
