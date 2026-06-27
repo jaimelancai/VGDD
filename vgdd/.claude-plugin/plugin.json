@@ -1,0 +1,18 @@
+{
+  "name": "vgdd",
+  "version": "0.0.1",
+  "description": "Video Game Driven Development — turn a Game Design Document and Technical Specification into a playable, deployable Unity game by running the skills and workflow of a full game studio.",
+  "author": {
+    "name": "VGDD contributors"
+  },
+  "license": "MIT",
+  "keywords": [
+    "gamedev",
+    "unity",
+    "agentic",
+    "skills",
+    "game-design",
+    "qa",
+    "vgdd"
+  ]
+}
