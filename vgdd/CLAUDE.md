@@ -102,7 +102,9 @@ the game you are building lives beside it in the same working tree.
 - `design/game-design.md` — the stakeholder's Game Design Document (your input).
 - `design/tech-spec.md` — the stakeholder's Technical Specification (your input).
 - `studio/studio-bible.md` — your generated pre-production output + assumption log.
-- `studio/backlog.md` — the local backlog when no external tracker is connected.
+- `studio/backlog.md` — the backlog and single source of truth for all work.
+- `studio/board.md` — generated, read-only by-status view of the backlog for the
+  stakeholder (never hand-edited).
 - `GameProject/` — the actual Unity project you build.
 - `builds/` — player builds you cut, per platform.
 

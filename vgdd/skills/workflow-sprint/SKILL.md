@@ -79,22 +79,28 @@ an unrefined backlog.
    before stacking features on it.
 3. **Pull** the highest-priority *ready* items from the top of the backlog into
    the sprint, up to a sensible capacity. Respect the one-demoable-feature floor:
-   a sprint must produce at least one feature you can show in a playtest.
+   a sprint must produce at least one feature you can show in a playtest. For each
+   story pulled, call the Producer's **set-status** to move it
+   `ready → in-sprint` (this updates `backlog.md`, regenerates `board.md`, and
+   pushes to any tracker in one step — never edit those files directly).
 4. **Set the sprint goal** in one sentence ("a swap-and-match board that clears
    3-in-a-row and updates score") and record it + the committed items in the
    Studio Bible. In `collaborative` mode, this goal is what the stakeholder will
    judge at the demo.
-5. Create the sprint branch per the Producer's branching scheme (default
-   `sprint/<n>` off `develop`).
+5. A sprint is a **time box, not a git branch** (GitFlow has no sprint branch).
+   Each committed **story** gets a `feature/<story-id>` branch off `develop` when
+   work on it begins (per the Producer's GitFlow scheme).
 
 ---
 
 ## 2. Implement — one task at a time, tests first (mandatory)
 
-For each committed task, dispatch a subagent to the right specialist
-(`engineer-gameplay`, `engineer-ui`, `engineer-backend`, `engineer-rendering`,
-`engineer-multiplayer`, `engineer-networking`, `engineer-tools-build`). Each task
-gets its own `task/<ticket-id>` branch.
+For each committed **story**, work proceeds on its `feature/<story-id>` branch.
+Dispatch a subagent per **task** to the right specialist (`engineer-gameplay`,
+`engineer-ui`, `engineer-backend`, `engineer-rendering`, `engineer-multiplayer`,
+`engineer-networking`, `engineer-tools-build`). Tasks are **commits on the story's
+feature branch** (each TDD'd), not separate branches — the feature branch lands as
+one reviewable unit.
 
 **Test-Driven Development is mandatory.** Every task follows red → green →
 refactor:
@@ -113,14 +119,16 @@ failing test, stop and write the test.
 > it works", "it's just a prototype". Write the test first. A feature with no
 > test is not done.
 
-Land each finished task as a reviewable diff (a PR when a remote is configured;
-a local commit on the task branch otherwise).
+Commit each finished task to the story's `feature/<story-id>` branch. When the
+whole story is done, land the feature branch as one reviewable unit (a PR into
+`develop` when a remote is configured; a local merge into `develop` otherwise).
 
 ---
 
 ## 3. Review — two stages per task
 
-Before a task is considered complete:
+When a story's implementation is complete and ready for review, call **set-status**
+to move it `in-sprint → in-review`. Then, before a task is considered complete:
 
 1. **Spec-compliance review** — does it do what the ticket/GDD asked? Does it
    serve the design pillars? Does it match the sprint goal?
@@ -166,7 +174,10 @@ demoable, but say so plainly — never imply more verification than happened.
 
 ## 6. Close the sprint
 
-1. Merge the sprint branch per the Producer's scheme (default: into `develop`).
+1. For each completed story: merge its `feature/*` branch into `develop`
+   (GitFlow: there is no sprint branch to merge — the sprint was a time box), then
+   call **set-status** to move the story `in-review → done`. A story is `done`
+   only once it passed both review stages, met its verification tier, and merged.
 2. Turn stakeholder feedback and anything discovered during the sprint into
    **new backlog items** (they will be refined before a future sprint — not
    slipped into this one).
@@ -188,7 +199,10 @@ A sprint is done only when **all** hold:
 - Tier 0 verification is green, and the highest available tier was attempted;
 - the demo is built and tagged;
 - in `collaborative` mode, the stakeholder has seen the demo;
-- the backlog and Studio Bible are updated.
+- every story's status was moved via **set-status** at each transition
+  (`ready → in-sprint → in-review → done`), so `backlog.md`, `board.md`, and any
+  tracker reflect reality — no story left showing a stale status;
+- the Studio Bible is updated.
 
 Code written but not demoable-and-verified does **not** count as a finished
 sprint. Don't declare victory at "it compiles."
