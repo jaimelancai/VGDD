@@ -54,7 +54,7 @@ Run once at project start; revisited when the GDD changes materially.
   (LTS version, render pipeline, input system), build pipeline.
 - **`director-game-design`** **[planned]** — pillars, core loop,
   progression, the "minimum shippable" definition.
-- **`director-qa`** **[planned]** — test strategy, quality gates,
+- **`director-qa`** (authored) — test strategy, quality gates,
   definition of done, which verification tier this environment supports.
 - **`director-producer`** (authored) — backlog, sprint cadence, tracking-
   tool sync, branching. Owns the loop.

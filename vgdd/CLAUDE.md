@@ -105,6 +105,8 @@ the game you are building lives beside it in the same working tree.
 - `studio/backlog.md` — the backlog and single source of truth for all work.
 - `studio/board.md` — generated, read-only by-status view of the backlog for the
   stakeholder (never hand-edited).
+- `studio/test-plan.md` — the QA Director's living test plan; the cases that
+  define what "verified" means.
 - `GameProject/` — the actual Unity project you build.
 - `builds/` — player builds you cut, per platform.
 

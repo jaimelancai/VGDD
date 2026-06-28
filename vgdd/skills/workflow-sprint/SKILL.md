@@ -141,17 +141,24 @@ A task that fails either stage goes back to implementation, not forward.
 
 ## 4. Verify — climb the ladder as far as the environment allows
 
-Run the verification the QA Director defined, climbing the ladder to the highest
-tier the detected environment supports:
+Verification has two layers, both required (see `director-qa`):
 
-- **Tier 0** unit/integration (always) — must be green to proceed.
-- **Tier 1** build + smoke (with a display).
-- **Tier 2** device/simulator playtest (with a connected device).
-- **Tier 3** CI escalation (if CI is present).
+1. **Automated** — run the verification the QA Director defined, climbing the
+   ladder to the highest tier the environment supports. The story's mapped
+   **test-plan cases** (`studio/test-plan.md`) must pass at the active tier.
 
-If an **engine Editor MCP** is connected, use it for interactive checks
-(enter Play Mode, inspect state, drive the feature) to enrich the tier — but
-gating still rests on the batch/build tiers, which are reproducible.
+   - **Tier 0** unit/integration (always) — must be green to proceed.
+   - **Tier 1** build + smoke (with a display).
+   - **Tier 2** device/simulator playtest (with a connected device).
+   - **Tier 3** CI escalation (if CI is present).
+
+   If an **engine Editor MCP** is connected, use it for interactive checks (enter
+   Play Mode, inspect state, drive the feature) to enrich the tier — but gating
+   still rests on the batch/build tiers, which are reproducible.
+
+2. **The QA Director's QA pass** — beyond the engineers' TDD tests, the QA
+   Director runs an exploratory + playtest pass on the increment. A blocking
+   defect there sends the story back, not forward.
 
 Record which tier actually ran. A sprint increment that only passed Tier 0 is
 demoable, but say so plainly — never imply more verification than happened.
@@ -196,6 +203,8 @@ demoable, but say so plainly — never imply more verification than happened.
 A sprint is done only when **all** hold:
 - at least one feature is **playable in the demo build**;
 - every committed task passed both review stages;
+- each story's **test-plan cases pass** at the active tier and the QA Director's
+  **QA pass** found no blocking defect (see `director-qa`);
 - Tier 0 verification is green, and the highest available tier was attempted;
 - the demo is built and tagged;
 - in `collaborative` mode, the stakeholder has seen the demo;
