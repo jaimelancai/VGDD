@@ -1,6 +1,6 @@
 ---
 name: meta-using-vgdd
-description: The map of the VGDD game-studio methodology — every skill, when it fires, and the studio loop order. Use this skill at the very start of ANY game-development task in a VGDD project, and whenever you are unsure which VGDD skill applies, before designing or writing any game code. Read it first.
+description: "The map of the VGDD game-studio methodology — every skill, when it fires, and the studio loop order. Use this skill at the very start of ANY game-development task in a VGDD project, and whenever you are unsure which VGDD skill applies, before designing or writing any game code. Read it first."
 ---
 
 # Using VGDD
@@ -63,7 +63,7 @@ Output: a completed `studio/studio-bible.md` (architecture + plan + assumptions)
 and an initial `studio/backlog.md`.
 
 ### Phase C — Sprint loop (repeat)
-Driven by **`workflow-sprint`** **[planned]**:
+Driven by **`workflow-sprint`** (authored):
 1. **Plan** — Producer pulls items, splits anything larger than medium. Atomic
    unit = one feature demoable in a playtest. No XXL tasks in a sprint.
 2. **Implement** — dispatch a subagent per task to the right specialist skill

@@ -1,0 +1,194 @@
+---
+name: workflow-sprint
+description: "Run one VGDD development sprint end to end — sprint planning, then per-feature TDD implementation, review, verification, a playable demo, and backlog update. Use this whenever the studio is ready to build the next increment of the game: after pre-production for the first sprint, and repeatedly thereafter until the backlog goal is met. Use it for post-release work too (fixes/improvements run through the same loop)."
+---
+
+# Sprint workflow
+
+This skill runs **one sprint**: a single iteration that turns top-priority,
+refined backlog items into a **playable, verified increment** of the game, ending
+in a demo. Repeat it sprint after sprint.
+
+It is an **orchestrator**. It drives the order of events and hands off to the
+skills that own each piece — it does not re-implement them:
+
+- **Prioritization, estimation, sizing, the backlog format** → owned by
+  `director-producer` (in *refinement*, which happens before this skill runs).
+- **Test strategy and which verification tier applies** → owned by `director-qa`.
+- **Writing game code** → owned by the `engineer-*` specialists.
+- **When to stop vs. continue** → owned by the **autonomy contract** in
+  `/CLAUDE.md`. This skill applies it; it does not restate the rules.
+
+If any of those skills is not yet authored (**[planned]**), follow the intent
+described here, make the best decision, log it in the Studio Bible, and continue.
+
+---
+
+## Ceremony order (do not skip steps)
+
+Scrum separates *refining* the backlog from *running* a sprint. This skill is the
+sprint. It assumes the top of the backlog has already been **refined** —
+prioritized, estimated, and split small enough. It never re-prioritizes mid-sprint.
+
+```
+   (refinement happens first — see Producer)
+        │
+        ▼
+   0. Precondition check  → is the top of the backlog "ready"?  if not, refine first
+   1. Sprint planning     → pull top-priority ready items into the sprint
+   2. Implement (per task)→ TDD: red → green → refactor, by the right engineer
+   3. Review (per task)   → two-stage: spec-compliance, then code quality
+   4. Verify              → climb the QA Director's verification ladder
+   5. Demo                → build a playable demo, tag it; apply autonomy contract
+   6. Close the sprint    → update backlog with feedback + discovered work
+        │
+        ▼  (repeat, or go to workflow-release when a release target is met)
+```
+
+---
+
+## 0. Precondition — the backlog must be refined
+
+Before planning, confirm the items you intend to pull are **ready** (refined,
+prioritized, estimated, and small enough — no XXL items). The atomic unit is
+**one feature demoable in a playtest**; nothing larger may enter a sprint
+un-split.
+
+If the top of the backlog is **not** refined (e.g. the very first sprint, or
+freshly-added post-release reports), **do not prioritize it here.** Hand back to
+`director-producer` to run refinement first, then return. Sprints never start on
+an unrefined backlog.
+
+**Who sets priority during refinement** (for your awareness; the Producer owns it):
+- **`collaborative`** — the **stakeholder** sets priorities. If they are absent
+  when refinement is needed, surface it and wait (per the autonomy contract).
+- **`autonomous`** — the **Producer** derives priority from the GDD's value
+  signals and task dependencies, and **logs the ordering** in the Studio Bible
+  for later review. Build-order dependencies always win over nominal priority
+  (you can't test scoring before a board exists).
+
+---
+
+## 1. Sprint planning
+
+1. Read `autonomy_level` and the current state from the Studio Bible and backlog.
+2. **First sprint?** Check whether a Unity project + test harness already exist
+   (`GameProject/`). If not, this sprint's goal is a **thin vertical slice**: a
+   minimal running Unity project, the test harness wired up (so Tier 0 works),
+   and the smallest playable fragment of the core loop. Establish the skeleton
+   before stacking features on it.
+3. **Pull** the highest-priority *ready* items from the top of the backlog into
+   the sprint, up to a sensible capacity. Respect the one-demoable-feature floor:
+   a sprint must produce at least one feature you can show in a playtest.
+4. **Set the sprint goal** in one sentence ("a swap-and-match board that clears
+   3-in-a-row and updates score") and record it + the committed items in the
+   Studio Bible. In `collaborative` mode, this goal is what the stakeholder will
+   judge at the demo.
+5. Create the sprint branch per the Producer's branching scheme (default
+   `sprint/<n>` off `develop`).
+
+---
+
+## 2. Implement — one task at a time, tests first (mandatory)
+
+For each committed task, dispatch a subagent to the right specialist
+(`engineer-gameplay`, `engineer-ui`, `engineer-backend`, `engineer-rendering`,
+`engineer-multiplayer`, `engineer-networking`, `engineer-tools-build`). Each task
+gets its own `task/<ticket-id>` branch.
+
+**Test-Driven Development is mandatory.** Every task follows red → green →
+refactor:
+
+1. **Red** — write the test(s) for the behavior *first*, and watch them fail.
+   No production code before a failing test exists.
+2. **Green** — write the minimum code to make the test(s) pass.
+3. **Refactor** — clean it up with tests staying green.
+
+The QA Director sets *which kinds* of tests are required and the active
+verification tier, but **tests-first is not negotiable** and is not deferrable to
+"later in the sprint." If you find yourself writing production code without a
+failing test, stop and write the test.
+
+> Rationalizations to reject: "this is too simple to test", "I'll add tests after
+> it works", "it's just a prototype". Write the test first. A feature with no
+> test is not done.
+
+Land each finished task as a reviewable diff (a PR when a remote is configured;
+a local commit on the task branch otherwise).
+
+---
+
+## 3. Review — two stages per task
+
+Before a task is considered complete:
+
+1. **Spec-compliance review** — does it do what the ticket/GDD asked? Does it
+   serve the design pillars? Does it match the sprint goal?
+2. **Code-quality review** — is it correct, readable, and free of obvious defects;
+   are the tests meaningful (not hollow)?
+
+A task that fails either stage goes back to implementation, not forward.
+
+---
+
+## 4. Verify — climb the ladder as far as the environment allows
+
+Run the verification the QA Director defined, climbing the ladder to the highest
+tier the detected environment supports:
+
+- **Tier 0** unit/integration (always) — must be green to proceed.
+- **Tier 1** build + smoke (with a display).
+- **Tier 2** device/simulator playtest (with a connected device).
+- **Tier 3** CI escalation (if CI is present).
+
+If an **engine Editor MCP** is connected, use it for interactive checks
+(enter Play Mode, inspect state, drive the feature) to enrich the tier — but
+gating still rests on the batch/build tiers, which are reproducible.
+
+Record which tier actually ran. A sprint increment that only passed Tier 0 is
+demoable, but say so plainly — never imply more verification than happened.
+
+---
+
+## 5. Demo — build it, show it, then apply the autonomy contract
+
+1. Build a **playable demo** of the increment and tag it (e.g. `demo/sprint-<n>`).
+   The demo is built in **every** mode — it is the proof the sprint produced
+   something real.
+2. Then apply the autonomy contract (`/CLAUDE.md`):
+   - **`collaborative`** — **stop** and present the demo for stakeholder
+     feedback. Do not start the next sprint until you have it.
+   - **`autonomous`** — record the demo and **continue**; it is not a blocking
+     gate. (But remember: if this increment would *ship to live players*, that is
+     always escalation-gated regardless of mode.)
+
+---
+
+## 6. Close the sprint
+
+1. Merge the sprint branch per the Producer's scheme (default: into `develop`).
+2. Turn stakeholder feedback and anything discovered during the sprint into
+   **new backlog items** (they will be refined before a future sprint — not
+   slipped into this one).
+3. Update the Studio Bible: what shipped, the verification tier reached, open
+   assumptions, and the next likely goal.
+4. Decide what's next:
+   - backlog goal not yet met → run another sprint (back to step 0);
+   - a release target is met → go to `workflow-release`;
+   - post-release and the backlog is drained → idle until new reports/requests
+     arrive, then refine and resume.
+
+---
+
+## Definition of done (for the sprint)
+
+A sprint is done only when **all** hold:
+- at least one feature is **playable in the demo build**;
+- every committed task passed both review stages;
+- Tier 0 verification is green, and the highest available tier was attempted;
+- the demo is built and tagged;
+- in `collaborative` mode, the stakeholder has seen the demo;
+- the backlog and Studio Bible are updated.
+
+Code written but not demoable-and-verified does **not** count as a finished
+sprint. Don't declare victory at "it compiles."
