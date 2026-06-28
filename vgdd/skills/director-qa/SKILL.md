@@ -40,50 +40,99 @@ Everything here defers to the **autonomy contract** in `/CLAUDE.md`.
 
 ## The test plan — `studio/test-plan.md`
 
-The test plan is a **living studio artifact** you author in pre-production and
-grow every sprint. It is the single place that answers "what must be true for
-this game to be correct?" Coverage and the quality bar are **defined by this
-plan** — not by arbitrary percentages. A story is verifiable-done when its
-test-plan cases pass; "enough testing" means "the plan's cases for this work are
-green," not "hit N% coverage."
+The test plan is a **living studio artifact**: the single place that answers
+"what must be true for this game to be correct?" Coverage and the quality bar are
+**defined by this plan**, not by arbitrary percentages. A story is
+verifiable-done when its test-plan cases pass; "enough testing" means "the plan's
+cases for this work are green," not "hit N% coverage."
 
-Author it from the **game design**: the core loop must run, win/lose must fire,
-each mechanic/blocker/booster must behave, each objective must be satisfiable.
-Keep it lean and readable (it is version-controlled markdown). A workable shape:
+### Who writes it
+
+**Only you, the QA Director.** Like the Producer with the backlog, this is
+single-owner: other skills *read* the test plan, none write it. You add cases in
+response to refined stories and to defects your QA pass uncovers — but the pen is
+always yours.
+
+### When it's updated — three moments, all additive
+
+1. **Pre-production (created once)** — you write the **thin skeleton** (below).
+2. **Per sprint, as stories are pulled** — you **deepen** the relevant part of
+   the skeleton with that story's concrete cases. This is the common update.
+3. **During the QA pass** — when exploratory testing finds a bug no case covered,
+   you **add the missing case** retroactively (and it becomes a regression case
+   once shipped).
+
+An update is **never a rewrite.** It is always one of: *add a headline case*
+(rare — only if the GDD itself changes), *deepen a story's cases* (the usual
+sprint-time act), or *add a regression / missing case*. The plan only ever grows;
+its git history stays meaningful.
+
+### Scope of the plan: thin skeleton up front, deepened per sprint
+
+You do **not** write the whole detailed plan in pre-production — that would mean
+inventing cases for features that don't exist yet (guesswork that goes stale).
+You also don't grow it purely incrementally — that would lose the
+whole-game view of quality. Instead, two altitudes:
+
+**Pre-production — the thin skeleton.** From the **game design**, write only the
+*headline* case per feature: the coarse facts derivable from the GDD before any
+code exists. This is the map of everything the game must eventually verify —
+organized by feature, but shallow. For a match-3:
 
 ```markdown
 # Test Plan
 
 ## Core loop
-- [ ] Player can swap two adjacent tiles
-- [ ] A line of 3+ clears and scores
-- [ ] Cascades resolve and chain
-- [ ] Win fires when the objective is met
-- [ ] Loss fires when moves reach zero
+- [ ] Core loop runs: swap → match → clear → score                [headline]
+- [ ] Win fires when the objective is met                          [headline]
+- [ ] Loss fires when moves reach zero                             [headline]
 
-## Mechanics: blockers
-- [ ] Jelly clears when a match occurs on top of it
+## Mechanics
+- [ ] Each defined blocker behaves (jelly, locks, …)              [headline]
+- [ ] Each defined booster behaves (striped, wrapped, …)          [headline]
 
-## Regression (accumulates over time)
-- [ ] (v1.0) Save files from v1.0 still load after this change
+## Progression
+- [ ] Levels load and advance                                      [headline]
 
-## Per-story cases
-- STORY swap-and-match → [core-loop cases 1–2]
+## Regression (accumulates after release)
+- [ ] (empty until the first release)
 ```
 
-Each case names: what behavior, at roughly which **verification tier** it's
-checked (a logic rule → Tier 0 unit; "the win screen appears" → Tier 1 smoke or
-the QA pass), and — once shipped — whether it's now a **regression** case.
+Headline cases say *what* must be true, not the detailed sub-cases — those wait
+until a sprint actually builds the feature.
+
+**Per sprint — deepen the skeleton.** When a story is pulled, expand its headline
+into concrete cases you can only write once you know how the feature works. The
+story "swap and clear 3-in-a-row" deepens the core-loop headline into:
+
+```markdown
+## Core loop
+- [x] Core loop runs: swap → match → clear → score                [headline]
+  - [ ] Swapping two adjacent tiles is allowed                    [STORY swap-match]
+  - [ ] A swap that makes no match reverts                        [STORY swap-match]
+  - [ ] A line of exactly 3 clears and scores                     [STORY swap-match]
+  - [ ] Swap at the board edge behaves                            [STORY swap-match]
+```
+
+So the plan grows *in detail* sprint by sprint, hung off a skeleton that already
+mapped the whole game from day one.
+
+### Case annotations
+
+Each case names: the behavior; roughly which **verification tier** checks it (a
+logic rule → Tier 0 unit; "the win screen appears" → Tier 1 smoke or the QA
+pass); the **story** it deepened from (once it's a sprint-time case); and — once
+shipped — whether it is now a **regression** case.
 
 > Like the backlog, the format is yours to evolve with real use. Start lean.
 
 ### Defining the quality bar from the plan
 
 The quality bar for a story is simply: **its mapped test-plan cases pass at the
-active verification tier**, and the QA pass (below) finds no blocking defect. You
-may add a coverage expectation where it helps (e.g. "core-loop logic should have
-unit cases for every rule"), but it is expressed as *cases in the plan*, not a
-bare number. No story is verifiable-done with failing or missing plan cases.
+active verification tier**, and the QA pass finds no blocking defect. You may add
+a coverage expectation where it helps (e.g. "core-loop logic should have a unit
+case for every rule"), but it is expressed as *cases in the plan*, not a bare
+number. No story is verifiable-done with failing or missing plan cases.
 
 ---
 
@@ -148,12 +197,13 @@ not silently break another. You own this:
 
 ## When you run
 
-- **Pre-production** — author `studio/test-plan.md` from the game design; set the
-  initial quality bar; decide the starting verification tier from the detected
+- **Pre-production** — write the **thin skeleton** of `studio/test-plan.md` from
+  the game design (headline case per feature, no detail yet); set the initial
+  quality bar; decide the starting verification tier from the detected
   environment.
-- **Each sprint** — map the sprint's stories to test-plan cases (adding cases as
-  needed); confirm the tier; after implementation, run your **QA pass**; gate the
-  stories' verifiable-done on plan cases passing + a clean pass.
+- **Each sprint** — **deepen** each pulled story's headline into concrete cases;
+  confirm the tier; after implementation, run your **QA pass**; gate the stories'
+  verifiable-done on plan cases passing + a clean pass.
 - **Post-release** — grow the regression suite; ensure fixes are checked against
   existing behavior and saves before they ship (shipping stays escalation-gated).
 
