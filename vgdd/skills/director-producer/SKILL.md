@@ -305,16 +305,28 @@ human-prompted return path instead of fragile automation.
 > If a configured connector is unavailable, fall back to `local` and log it.
 > Never stall waiting for a tracker connection.
 
-### Post-release: the board as an input source
+### Bug reports and feature requests as input (any time, not only post-release)
 
-Once the game is live, incoming **bug reports and feature requests** often land on
-the external board first. These re-enter the same way: the stakeholder (or the
-Producer's "anything new?" prompt) brings them into the conversation, and the
-Producer triages them into `studio/backlog.md` as new Epics/Stories, refines, and
-sizes them — then they flow through the normal sprint loop. (See the live-ops
-phase in the studio map.) Connector mechanics for pushing/reading the board live
-in `integrations/` (**[planned]**, Phase 3); here you decide *what* enters the
-backlog, the adapter handles *how* it's pushed out.
+Incoming **bug reports and feature requests** can arrive at any point — the
+stakeholder spotting a bug at a sprint demo, or (post-release) tickets landing on
+the external board. They re-enter the same way: the stakeholder, or your "anything
+new?" prompt, brings them into the conversation, and you triage them into
+`studio/backlog.md` as new Epics/Stories, then refine and size them so they flow
+through the normal sprint loop.
+
+**For a bug specifically, intake has two halves — yours and the QA Director's:**
+- **You** add the bug to the backlog as a fix item (its priority and size).
+- **Hand off to the QA Director** to write a **reproducing test case that fails
+  first**, before any fix begins. The fix is done only when that case passes, and
+  the case stays as a regression case. (See `director-qa` → "Reproduce-first".)
+
+So a reported bug always produces *both* a backlog item (you) and a
+reproducing-then-regression test case (QA Director), created together — never one
+without the other. This holds pre-release and post-release alike.
+
+Connector mechanics for pushing/reading the board live in `integrations/`
+(**[planned]**, Phase 3); here you decide *what* enters the backlog, the adapter
+handles *how* it's pushed out. (See also the live-ops phase in the studio map.)
 
 ---
 

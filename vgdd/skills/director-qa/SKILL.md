@@ -58,14 +58,35 @@ always yours.
 1. **Pre-production (created once)** — you write the **thin skeleton** (below).
 2. **Per sprint, as stories are pulled** — you **deepen** the relevant part of
    the skeleton with that story's concrete cases. This is the common update.
-3. **During the QA pass** — when exploratory testing finds a bug no case covered,
-   you **add the missing case** retroactively (and it becomes a regression case
-   once shipped).
+3. **When any bug is reported — by anyone, at any time** — you add a
+   **reproducing test case that fails first**, before the fix. Sources are equal:
+   your own QA pass, the stakeholder at a sprint demo, or a post-release ticket
+   triaged in by the Producer. The case must *reproduce* the bug (fail on the
+   current build, proving it's captured), the fix then makes it **pass**, and it
+   stays as a **regression case** so the bug can't silently return. (This is
+   bug-fixing as TDD — see "Reproduce-first" below.)
 
 An update is **never a rewrite.** It is always one of: *add a headline case*
 (rare — only if the GDD itself changes), *deepen a story's cases* (the usual
 sprint-time act), or *add a regression / missing case*. The plan only ever grows;
 its git history stays meaningful.
+
+### Reproduce-first: every reported bug becomes a failing case before the fix
+
+When a bug is reported — **from any source, at any time** (your QA pass, the
+stakeholder at a demo, a post-release ticket) — the fix is handled as TDD:
+
+1. The **Producer** adds the bug to the backlog as a fix item (its backlog half).
+2. **You** write a test case that **reproduces** the bug and **fails** on the
+   current build — confirming the bug is real and now captured by a case. A fix
+   without a reproducing test is not allowed to start.
+3. The fix runs through the normal sprint loop (engineer + TDD) until the
+   reproducing case **passes**.
+4. The case **stays as a regression case** so the bug cannot silently return.
+
+So every reported bug leaves two permanent artifacts — a backlog item (Producer)
+and a reproducing-then-regression test case (you) — created together. Same bug,
+two owners, one trigger. This holds pre-release and post-release alike.
 
 ### Scope of the plan: thin skeleton up front, deepened per sprint
 
