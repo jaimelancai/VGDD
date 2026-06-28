@@ -45,7 +45,7 @@ costly actions — force-push, deleting your work, spending money, publishing)
 applies in **both** modes; this only changes the sprint-demo gate.
 - `collaborative` — a playable demo every sprint, and it **stops for your
   feedback** before continuing. Best if you want to steer.
-- `autonomous` — runs straight through to a first beta; demos are still built and
+- `autonomous` — runs straight through to the first release; demos are still built and
   tagged each sprint but don't block. Stops only at the escalation line. Best if
   you want to hand it the docs and walk away.
 Full details: the autonomy contract in `/CLAUDE.md`.

@@ -12,6 +12,13 @@ This tracks the **framework build-out**, not the loop the framework runs.
 | **4. Depth & device** | Backend/multiplayer/networking + Tier-2 device playtest | planned |
 | **5. Art & Audio** | Art/Audio Directors, asset pipeline | planned |
 | **6. Multi-engine + distribution** | Godot overlay, plugin packaging, docs/examples gallery | planned |
+| **7. Live-ops & maintenance** | Post-release intake (bug/feedback triage from tracker), regression-first QA, versioned releases, live-deploy always escalation-gated | planned |
+
+> The studio is iterative *past* release: the first beta is a handoff into
+> live-ops, not a finish line. Phases 0–6 build the studio that ships a game;
+> Phase 7 builds the studio that keeps the shipped game alive. The release gate
+> and autonomy wording in the foundations are already written to accommodate
+> this (release is a recurring gate; shipping to players is always gated).
 
 ## Phase 0 deliverables (current)
 

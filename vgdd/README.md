@@ -28,7 +28,12 @@ You write two documents — a game design and a technical spec — and drop them
    define the architecture, Unity setup, test strategy, and backlog.
 3. **Sprints** — each iteration plans, implements (a subagent per feature),
    reviews, tests, and produces a **playable demo**.
-4. **Release** — cuts a build for your target platform(s) and tags a beta.
+4. **Release** — cuts a build for your target platform(s) and tags it (the first
+   is your beta).
+5. **Live-ops** — release isn't the end. Bug reports, player feedback, and
+   improvement requests feed back into the same sprint loop, so the game keeps
+   evolving after launch. Shipping any update to live players always stops for
+   your approval.
 
 You are the **Stakeholder and Head of Studio**: always able to step in, never
 required to. You set how autonomously it runs.
@@ -37,7 +42,7 @@ required to. You set how autonomously it runs.
 
 - **`collaborative`** (default) — a demo every sprint; it stops for your
   feedback before continuing.
-- **`autonomous`** — runs straight to a first beta, stopping only for
+- **`autonomous`** — runs straight to the first release, stopping only for
   irreversible, costly actions.
 
 Either way, it never silently modifies your machine and never force-pushes or

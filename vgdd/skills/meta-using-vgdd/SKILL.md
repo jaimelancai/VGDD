@@ -75,10 +75,35 @@ Driven by **`workflow-sprint`** **[planned]**:
    stakeholder feedback; in `autonomous` mode, continue. (Autonomy contract.)
 6. **Update backlog** — feedback and discovered work become backlog items.
 
-### Phase D — Release
+### Phase D — Release (a recurring gate, not the end)
 - **`workflow-release`** **[planned]** — cut a build per target platform, run
-  the release checklist, tag, produce a beta. Crossing to an external store or
-  deploy hits the escalation line — stop and ask.
+  the release checklist, tag, produce a release (the first one is the beta).
+  Crossing to an external store or deploy — or any update that reaches players
+  already running the game — hits the escalation line: stop and ask, in every
+  autonomy mode. Release is a gate the game passes through repeatedly over its
+  life, not a one-way door.
+
+### Phase E — Live-ops & maintenance (after the first release)
+**[planned — framework Phase 7; not built yet]**
+The studio does not stop at release; that is when live operations begin. The
+same sprint loop (Phase C) keeps running, but its **intake changes**: instead of
+the original GDD, work is now fed by incoming **bug reports, crash logs, player
+feedback, and improvement requests** — triaged into properly-sized backlog
+tickets. The tracker (e.g. GitHub Issues) becomes an *input source*, not just an
+output board.
+
+Two things differ from pre-release work:
+- **Regression safety is first-class.** You are changing a game real people are
+  running. Protect existing behavior and save-game compatibility; the QA
+  Director's regression checks gate changes, not just new-feature tests.
+- **Shipping is always gated.** Developing and verifying a fix can be
+  autonomous, but putting any update in players' hands is escalation-gated in
+  every mode (autonomy contract).
+
+Until this phase is built, if you reach post-release work: follow this intent —
+triage the incoming report into the backlog, run it through the normal sprint
+loop, and treat shipping the update as an escalation. Log decisions; do not stop
+the studio at "first beta."
 
 ---
 

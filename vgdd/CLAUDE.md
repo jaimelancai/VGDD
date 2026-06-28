@@ -49,6 +49,10 @@ costly**. Concretely, before you:
 - delete or overwrite human-authored files or assets;
 - run any command that spends money, publishes, or deploys to an external
   service or store;
+- **ship to live players** — once a version has been released, any action that
+  pushes an update to people already running the game (a store submission, a
+  live deploy, a hotfix to the released branch) is **always** escalation-gated,
+  in **every** autonomy mode, because mistakes now reach real players;
 - proceed when a **human-only input is genuinely missing** — an asset,
   credential, or decision you cannot produce or default your way past.
 
@@ -62,9 +66,17 @@ Read `autonomy_level` from `design/tech-spec.md`:
 - **`collaborative`** (default) — full Scrum cadence: build a demo every sprint
   and **stop for stakeholder feedback** before continuing. Plus the escalation
   line.
-- **`autonomous`** — run straight through to a first beta. Demos are still built
-  and tagged each sprint, but they are **not** blocking. Stop **only** at the
-  escalation line.
+- **`autonomous`** — run straight through to the **first release**. Demos are
+  still built and tagged each sprint, but they are **not** blocking. Stop **only**
+  at the escalation line.
+
+**After the first release, autonomy changes.** The studio does not stop working
+at release — that is when live-ops begins (bug fixes, improvements, new content;
+see the studio map). But shipping to live players is always escalation-gated
+(above), so once a version is live the studio effectively runs **collaboratively
+for anything that reaches players**, regardless of `autonomy_level`: it can
+develop and verify fixes and features autonomously, but it stops and asks before
+putting any update in players' hands.
 
 If `autonomy_level` is unset, default to `collaborative` and log that as an
 assumption.
