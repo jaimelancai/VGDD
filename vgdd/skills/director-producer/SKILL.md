@@ -315,10 +315,16 @@ new?" prompt, brings them into the conversation, and you triage them into
 through the normal sprint loop.
 
 **For a bug specifically, intake has two halves — yours and the QA Director's:**
-- **You** add the bug to the backlog as a fix item (its priority and size).
+- **You** add the bug to the backlog as a fix item (its priority and size). If
+  the studio can't reproduce it on its own, mark it **needs-human-repro** — it
+  then waits like any other item; the QA Director will request the human's help
+  when it is *pulled into a sprint*, not now.
 - **Hand off to the QA Director** to write a **reproducing test case that fails
-  first**, before any fix begins. The fix is done only when that case passes, and
-  the case stays as a regression case. (See `director-qa` → "Reproduce-first".)
+  first**, before any fix begins (or, for a needs-human-repro bug, to drive the
+  human-assisted reproduction at sprint time). The fix is done only when that
+  case passes (or the human confirms it gone), and a best-effort automated guard
+  stays as a regression case. (See `director-qa` → "Reproduce-first" and
+  "human-assisted bugs".)
 
 So a reported bug always produces *both* a backlog item (you) and a
 reproducing-then-regression test case (QA Director), created together — never one

@@ -88,6 +88,47 @@ So every reported bug leaves two permanent artifacts — a backlog item (Produce
 and a reproducing-then-regression test case (you) — created together. Same bug,
 two owners, one trigger. This holds pre-release and post-release alike.
 
+### When the studio can't reproduce it: human-assisted bugs
+
+Some bugs the studio cannot reproduce on its own — a human reported it, so a
+**human can reproduce it** even when the studio's reachable tiers can't (timing
+races, a specific device/OS, vague repro steps). Treat "non-reproducible" as
+**"reproducible only by a human,"** and collaborate rather than give up. Never
+fake a passing test, never silently drop it, never ship a fix you couldn't verify.
+
+**Ask for help at *sprint time*, not at report time.** A bug the studio can't
+reproduce is filed to the backlog marked **needs-human-repro** and then *waits
+like any other item*. You engage the human only when it is **pulled into a
+sprint** to be fixed (often a dedicated stability / bug-fix sprint). Asking
+earlier is noise; asking later blocks the fix. When it enters a sprint, request
+the human's help in up to three ways:
+
+1. **Clarify** — exact steps, device/OS, how often, what they saw.
+2. **Reproduce** — the human triggers it manually, ideally while the studio
+   observes (watching logs, or driving the **Editor MCP** live), so you can
+   characterize the cause well enough to write *something* that catches it.
+3. **Verify the fix** — once fixed, the human manually confirms the bug is gone,
+   because the studio can't run the reproducing case itself.
+
+**The regression guard: always best-effort automated, plus a manual note.** Even
+when full reproduction stays manual, you **always write the best automated or
+partial check you can** — a stress/repeat loop, a guard on the suspected cause, an
+assertion that the code path no longer throws — so the suite gains *some* real
+protection. Alongside it, record a **manual regression note**: what the
+automation can't cover and what the human should re-check at relevant releases.
+Every human-assisted bug thus leaves an automated footprint *and* a documented
+manual gap — never a purely manual "remember to check."
+
+**Human availability is a human-only input (escalation line).** If such a bug is
+in a sprint and needs the human to reproduce or verify, and the human isn't
+available, that is a genuine *missing human-only input*: surface it and let the
+item wait. In `collaborative` mode this resolves naturally (the human is around
+at demos). In `autonomous` mode this specific item stops and waits for the human
+even while the rest of the sprint runs free — consistent with the escalation line
+in `/CLAUDE.md`. The fix is **done** only when the human confirms it gone and the
+best-effort automated guard is green; mark it a **human-verified fix** (lower
+automated confidence, explicitly noted in the Studio Bible).
+
 ### Scope of the plan: thin skeleton up front, deepened per sprint
 
 You do **not** write the whole detailed plan in pre-production — that would mean
