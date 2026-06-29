@@ -72,11 +72,12 @@ an unrefined backlog.
 ## 1. Sprint planning
 
 1. Read `autonomy_level` and the current state from the Studio Bible and backlog.
-2. **First sprint?** Check whether a Unity project + test harness already exist
-   (`GameProject/`). If not, this sprint's goal is a **thin vertical slice**: a
-   minimal running Unity project, the test harness wired up (so Tier 0 works),
-   and the smallest playable fragment of the core loop. Establish the skeleton
-   before stacking features on it.
+2. **First sprint?** The Technical Director has already **scaffolded** a minimal
+   running Unity project + green test harness at `GameProject/` during
+   pre-production (see `director-technical`). Do not recreate it. Confirm it
+   exists and Tier-0 tests run green; if it's somehow missing, hand back to the
+   Technical Director to scaffold before proceeding. The first sprint then builds
+   the **smallest playable fragment of the core loop** *on* that scaffold.
 3. **Pull** the highest-priority *ready* items from the top of the backlog into
    the sprint, up to a sensible capacity. Respect the one-demoable-feature floor:
    a sprint must produce at least one feature you can show in a playtest. For each
@@ -130,10 +131,15 @@ whole story is done, land the feature branch as one reviewable unit (a PR into
 When a story's implementation is complete and ready for review, call **set-status**
 to move it `in-sprint → in-review`. Then, before a task is considered complete:
 
-1. **Spec-compliance review** — does it do what the ticket/GDD asked? Does it
-   serve the design pillars? Does it match the sprint goal?
-2. **Code-quality review** — is it correct, readable, and free of obvious defects;
-   are the tests meaningful (not hollow)?
+1. **Spec-compliance review** — does it do what the story/GDD asked, serve the
+   design pillars, and match the sprint goal? (A Game Design Director concern.)
+2. **Code-quality review** — owned by the **Technical Director** (see
+   `director-technical`): does the diff follow the conventions, fit the
+   architecture, keep logic/engine separation, and avoid needless complexity and
+   debt? Are the tests meaningful, not hollow?
+
+(Behavioral/test verification — test-plan cases + the QA pass — is the QA
+Director's, handled in step 4 Verify, not here.)
 
 A task that fails either stage goes back to implementation, not forward.
 
