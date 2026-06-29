@@ -152,6 +152,24 @@ building them. Not just the game client — whatever the architecture calls for.
 The concrete "how" for each engine/runtime (commands, project layout, harness
 wiring) is in the engine overlay and the relevant engineer skills.
 
+### Engine MCP vs. CLI — a firm line
+
+An engine may offer an **Editor MCP** (e.g. a Unity Editor MCP server) that drives
+the live editor. Keep a bright line about when to use it:
+
+- **CLI / batch is the baseline for everything that produces or verifies an
+  artifact** — project setup, scaffolding, builds, and running tests. These must
+  be **reproducible and CI-runnable**, and CI has no live editor + MCP. The CLI
+  path always exists and is never abandoned.
+- **The engine MCP is for interactive and QA work only** — inspecting state,
+  exploratory Play Mode driving, the QA Director's pass. It is an enhancement
+  layered on top of the CLI baseline, available only when connected.
+
+So: never route setup/scaffold/build/test through the MCP (reproducibility); never
+assume the MCP is present (it often isn't). This matches how the QA Director treats
+it — the MCP enriches interactive verification, but gating rests on the reproducible
+batch/build tiers.
+
 ---
 
 ## Integration workflows

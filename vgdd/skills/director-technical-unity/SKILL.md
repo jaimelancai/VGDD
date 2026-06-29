@@ -77,7 +77,14 @@ states a different preference) so every engineer subagent follows the same rules
 
 ## Editor MCP
 
-If a Unity Editor MCP server is connected (per environment detection), it is
-available for interactive checks during development and QA — note its presence in
-the architecture document so engineers and the QA Director know they can drive the
-live Editor. Gating verification still rests on the reproducible batch/build tiers.
+If a Unity Editor MCP server is connected (per environment detection), use it for
+**interactive and QA work only** — driving Play Mode, inspecting scene/GameObject
+state, exploratory checks during development and the QA Director's pass. Note its
+presence in the architecture document so engineers and the QA Director know they
+can drive the live Editor.
+
+**Do not route project setup, scaffolding, builds, or test runs through the MCP.**
+Those stay on the CLI/batch path (`-runTests -batchmode`, the `-executeMethod`
+build target) because they must be reproducible and CI-runnable, and CI has no live
+Editor. The MCP is an interactive enhancement on top of that baseline, never a
+replacement for it. (Same line the base skill and the QA Director draw.)
