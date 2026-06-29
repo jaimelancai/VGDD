@@ -5,7 +5,7 @@ This tracks the **framework build-out**, not the loop the framework runs.
 
 | Phase | Goal | Status |
 |---|---|---|
-| **0. Foundations** | Repo skeleton, bootstrap, templates, core-loop + first Directors | **in progress** |
+| **0. Foundations** | Repo skeleton, bootstrap, templates, core-loop + all four Directors, intake skills | **done** |
 | **1. Engineering spine (Unity)** | End-to-end on Unity, one reference game, Tier-0 verified | planned |
 | **2. QA & evals** | Reference-game suite + verification ladder gating changes | planned |
 | **3. Tracking & collaboration** | Local backlog + GitHub adapter, Scrum demos, autonomy toggle | planned |
@@ -30,6 +30,14 @@ This tracks the **framework build-out**, not the loop the framework runs.
 6. Four Director skills (Technical, Game Design, QA, Producer) — **done**
    (Technical Director split into engine-agnostic base + `director-technical-unity`
    overlay)
-7. Environment-detection + tool-provisioning skill — *next (last Phase 0 item)*
+7. Environment-detection + tool-provisioning skills
+   (`workflow-environment-detection`, `workflow-tool-provisioning`) — **done**
+
+**Phase 0 complete.** Authored: bootstrap (`CLAUDE.md`/`AGENTS.md`), the map
+(`meta-using-vgdd`), both input templates, `workflow-sprint`, the four Directors
+(`director-technical` + `director-technical-unity`, `director-game-design`,
+`director-qa`, `director-producer`), and the two intake workflow skills.
+Still `[planned]` for Phase 1: `workflow-intake`, `workflow-release`, and the
+`engineer-*` / `qa-*` execution skills.
 
 See `VGDD-PLAN-v3.md` for the full design rationale.

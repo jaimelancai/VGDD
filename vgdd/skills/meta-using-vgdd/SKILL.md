@@ -42,7 +42,7 @@ and **meta** skills (`meta-*` skills) like this one.
   `design/tech-spec.md`. Run environment detection. Fill spec gaps with
   documented defaults, logging each as an assumption. Never stall on a thin
   spec.
-- **`workflow-environment-detection`** **[planned]** — Detect git remote, CI,
+- **`workflow-environment-detection`** (authored) — Detect git remote, CI,
   GPU/display, connected devices, a working Unity, and any connected **engine
   Editor MCP** (e.g. a Unity Editor MCP server). Set the verification tier, note
   whether an Editor MCP is in the loop, and set the tool-provisioning level.
@@ -145,7 +145,7 @@ the loop — so the stakeholder knows how much was actually verified.
 
 ## Tool provisioning (touching the host machine)
 
-Governed by **`workflow-tool-provisioning`** **[planned]**. Three levels:
+Governed by **`workflow-tool-provisioning`** (authored). Three levels:
 
 - **Level 0 — detect & guide** (default): if a tool is missing, give the human
   the exact install command; never install it yourself.
