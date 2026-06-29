@@ -50,10 +50,12 @@ and **meta** skills (`meta-*` skills) like this one.
 
 ### Phase B — Pre-production (Directors)
 Run once at project start; revisited when the GDD changes materially.
-- **`director-technical`** (authored) — architecture doc, Unity setup
-  (LTS version, render pipeline, input system), build pipeline, integration
-  workflows, coding conventions, internal/structural code quality; scaffolds the
-  Unity project + test harness in pre-production.
+- **`director-technical`** (authored) — engine-agnostic: architecture doc,
+  integration workflows, coding conventions, internal/structural code quality;
+  scaffolds every system the design needs (client always; backend/multiplayer when
+  required) with green test harnesses. Loads an **engine overlay** for mechanics:
+  **`director-technical-unity`** (authored) for Unity; Godot/Unreal overlays
+  **[planned]**.
 - **`director-game-design`** **[planned]** — pillars, core loop,
   progression, the "minimum shippable" definition.
 - **`director-qa`** (authored) — test strategy, quality gates,

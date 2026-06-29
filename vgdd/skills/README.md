@@ -28,9 +28,15 @@ while keeping every skill discoverable.
 
 ## Engine overlays
 
-Engine-specific detail lives in a sibling skill, not a nested folder — e.g.
-`engineer-gameplay` (engine-agnostic) + `engineer-gameplay-unity` (Unity
-overlay). Godot/Unreal overlays follow the same pattern later.
+Engine-specific detail lives in a sibling skill, not a nested folder. A base skill
+holds the engine-agnostic role/responsibilities; its overlay holds the engine
+mechanics. This applies to **both engineers and Directors**:
+
+- `engineer-gameplay` (agnostic) + `engineer-gameplay-unity` (Unity overlay)
+- `director-technical` (agnostic) + `director-technical-unity` (Unity overlay)
+
+The base says *what* must be true; the overlay says *how* on that engine. Godot and
+Unreal overlays follow the same pattern in a later phase.
 
 ## Frontmatter: portable core only (for now)
 
