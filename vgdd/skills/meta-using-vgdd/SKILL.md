@@ -56,8 +56,9 @@ Run once at project start; revisited when the GDD changes materially.
   required) with green test harnesses. Loads an **engine overlay** for mechanics:
   **`director-technical-unity`** (authored) for Unity; Godot/Unreal overlays
   **[planned]**.
-- **`director-game-design`** **[planned]** — pillars, core loop,
-  progression, the "minimum shippable" definition.
+- **`director-game-design`** (authored) — pillars, core loop,
+  progression, the "minimum shippable" definition; spec-compliance review;
+  design coherence (advisory, never blocking). Engine-independent.
 - **`director-qa`** (authored) — test strategy, quality gates,
   definition of done, which verification tier this environment supports.
 - **`director-producer`** (authored) — backlog, sprint cadence, tracking-

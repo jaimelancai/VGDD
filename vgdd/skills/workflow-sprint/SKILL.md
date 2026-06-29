@@ -131,8 +131,9 @@ whole story is done, land the feature branch as one reviewable unit (a PR into
 When a story's implementation is complete and ready for review, call **set-status**
 to move it `in-sprint → in-review`. Then, before a task is considered complete:
 
-1. **Spec-compliance review** — does it do what the story/GDD asked, serve the
-   design pillars, and match the sprint goal? (A Game Design Director concern.)
+1. **Spec-compliance review** — owned by the **Game Design Director** (see
+   `director-game-design`): does it do what the story/GDD asked and serve the
+   design pillars? Does it match the sprint goal?
 2. **Code-quality review** — owned by the **Technical Director** (see
    `director-technical`): does the diff follow the conventions, fit the
    architecture, keep logic/engine separation, and avoid needless complexity and

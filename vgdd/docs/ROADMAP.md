@@ -27,7 +27,9 @@ This tracks the **framework build-out**, not the loop the framework runs.
 3. `meta-using-vgdd` map skill (folder + SKILL.md) — **done**
 4. Input templates: GDD + Tech-Spec — **done**
 5. Core-loop + sprint workflow skill (`workflow-sprint`) — **done**
-6. Four Director skills (Technical, Game Design, QA, Producer) — *next*
-7. Environment-detection + tool-provisioning skill — *next*
+6. Four Director skills (Technical, Game Design, QA, Producer) — **done**
+   (Technical Director split into engine-agnostic base + `director-technical-unity`
+   overlay)
+7. Environment-detection + tool-provisioning skill — *next (last Phase 0 item)*
 
 See `VGDD-PLAN-v3.md` for the full design rationale.
