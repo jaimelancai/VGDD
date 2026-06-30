@@ -59,10 +59,10 @@ two-masters conflicts between skills.
 ## The studio loop (the order things happen)
 
 ### Phase A — Intake
-- **`workflow-intake`** **[planned]** — Read `design/game-design.md` and
-  `design/tech-spec.md`. Run environment detection. Fill spec gaps with
-  documented defaults, logging each as an assumption. Never stall on a thin
-  spec.
+- **`workflow-intake`** (authored) — the front door: cold-start setup (git,
+  studio files, copying templates if missing), read the two documents, run
+  environment detection, then sequence the Directors through pre-production. Read
+  `design/game-design.md` and `design/tech-spec.md`. Never stall on a thin spec.
 - **`workflow-environment-detection`** (authored) — Detect git remote, CI,
   GPU/display, connected devices, a working Unity, and any connected **engine
   Editor MCP** (e.g. a Unity Editor MCP server). Set the verification tier, note
