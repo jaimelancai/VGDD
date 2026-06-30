@@ -59,7 +59,7 @@ them act.
    - Level 0, or a personal machine → give the exact install command, wait.
    - Level 1 → announce the command, install the allowlisted tool on confirmation.
    - Level 2 + ephemeral/CI → install the allowlisted tool, log it.
-4. Record the outcome in the Studio Bible's provisioning log.
+4. Record the outcome in `studio/bible/provisioning.md` (the log it owns).
 
 ## Definition of done
 

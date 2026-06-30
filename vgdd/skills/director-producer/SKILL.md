@@ -204,7 +204,7 @@ Per the autonomy contract:
   to confirm.)
 - **`autonomous`** — **you** derive priority from the **GDD's value signals**
   (design pillars, the minimum-shippable definition, what the core loop needs
-  first) and **dependencies**, then **log the ordering** in the Studio Bible for
+  first) and **dependencies**, then **log the ordering** in `studio/bible/decisions.md` for
   later stakeholder review.
 
 In both modes, the first beta's content is steered by the GDD's minimum

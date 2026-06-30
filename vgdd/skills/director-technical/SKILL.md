@@ -23,7 +23,7 @@ Everything here defers to the **autonomy contract** in `/CLAUDE.md`.
 
 ## What you own
 
-1. **The architecture document** — the technical foundation in the Studio Bible.
+1. **The architecture document** — the technical foundation, `studio/bible/architecture.md`.
 2. **Integration workflows** — how systems (client, backend, multiplayer) connect,
    and how CI/CD builds and deploys them, and *when* in the build-out.
 3. **Conventions** — the team's coding standards (the specific set comes from your
@@ -64,7 +64,7 @@ the QA Director owns the behavioral/test verification.
 
 Read `design/tech-spec.md`: the five frontmatter keys exactly, and the prose body
 as **intent**. For anything left to default, choose a sensible value, **apply it,
-and log it as an assumption** in the Studio Bible — never stall asking (autonomy
+and log it as an assumption** in `studio/bible/decisions.md` — never stall asking (autonomy
 contract). Resolve at least:
 
 - **Engine + version** — which engine, and its version (`auto` → the latest
@@ -82,7 +82,7 @@ Record the resolved stack in the architecture document.
 
 ## The architecture document
 
-Write the technical foundation into the Studio Bible. Keep it lean and concrete —
+Write the technical foundation into `studio/bible/architecture.md`. Keep it lean and concrete —
 it is what the engineers build against. Cover:
 
 - **Resolved stack** — engine + version, graphics/render config, input handling,

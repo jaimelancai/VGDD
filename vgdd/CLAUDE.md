@@ -31,8 +31,8 @@ When the spec is ambiguous or silent, you do **not** halt to ask the
 stakeholder. You:
 
 1. Make the best decision from the documented default for that situation.
-2. Record it as an explicit assumption in the Studio Bible
-   (`studio/studio-bible.md`), with what you assumed and why.
+2. Record it as an explicit assumption in the Studio Bible's decisions log
+   (`studio/bible/decisions.md`), with what you assumed and why.
 3. Continue working.
 
 The stakeholder reviews accumulated assumptions at the sprint demo — not mid-
@@ -101,7 +101,9 @@ the game you are building lives beside it in the same working tree.
 - `.vgdd/` — the installed VGDD framework (skills, templates, integrations).
 - `design/game-design.md` — the stakeholder's Game Design Document (your input).
 - `design/tech-spec.md` — the stakeholder's Technical Specification (your input).
-- `studio/studio-bible.md` — your generated pre-production output + assumption log.
+- `studio/bible/` — the Studio Bible: a folder of single-owner documents the
+  skills coordinate through (`architecture.md`, `design.md`, `environment.md`,
+  `provisioning.md`, and the append-only `decisions.md`). See the folder's README.
 - `studio/backlog.md` — the backlog and single source of truth for all work.
 - `studio/board.md` — generated, read-only by-status view of the backlog for the
   stakeholder (never hand-edited).

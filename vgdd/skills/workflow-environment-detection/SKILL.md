@@ -7,7 +7,7 @@ description: "Detect what the runtime environment offers and record it, so the r
 
 Run this **once at intake**, before pre-production, and again only if the
 environment changes. Its job: find out what this machine can actually do, and
-**write the findings into the Studio Bible** so every later skill plans within
+**write the findings into `studio/bible/environment.md`** (the document it owns) so every later skill plans within
 real limits rather than discovering them mid-sprint or stalling. You *detect and
 record*; you do not install anything (that's `workflow-tool-provisioning`) and you
 do not decide the test strategy (that's `director-qa`, which reads what you found).
@@ -60,7 +60,7 @@ uses this when a missing tool is hit.
 
 ## Recording the findings
 
-Write a clear **environment report** into the Studio Bible: each capability
+Write a clear **environment report** into `studio/bible/environment.md`: each capability
 present/absent, the resolved engine version, the active verification tier ceiling
 and what's unreachable, Editor MCP presence, and any missing tools/runtimes with
 their impact. This report is the single source other skills read — they do **not**
@@ -68,7 +68,7 @@ re-detect.
 
 ## Definition of done
 
-Detection is done when the Studio Bible contains a complete environment report:
+Detection is done when `studio/bible/environment.md` contains a complete report:
 git/remote, CI, display, devices, engine (+version or a flagged missing-engine
 blocker), Editor MCP, required runtimes, the verification-tier ceiling, and the
 provisioning context. If a later skill would have to ask "can we build here? can

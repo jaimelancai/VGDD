@@ -17,7 +17,7 @@ Everything here defers to the **autonomy contract** in `/CLAUDE.md`.
 1. **The test plan** — `studio/test-plan.md`. You create it and keep it living.
    It is the source from which the quality bar and coverage are defined.
 2. **The verification tier decision** — given what the environment offers, which
-   tier (0–3, + Editor MCP) is active, recorded in the Studio Bible.
+   tier (0–3, + Editor MCP) is active, recorded in `studio/bible/decisions.md`.
 3. **The QA pass** — a dedicated exploratory + playtest pass on each sprint's
    increment, finding what automated unit tests miss.
 4. **Regression safety** — protecting already-shipped behavior (and save-game
@@ -127,7 +127,7 @@ at demos). In `autonomous` mode this specific item stops and waits for the human
 even while the rest of the sprint runs free — consistent with the escalation line
 in `/CLAUDE.md`. The fix is **done** only when the human confirms it gone and the
 best-effort automated guard is green; mark it a **human-verified fix** (lower
-automated confidence, explicitly noted in the Studio Bible).
+automated confidence, explicitly noted in `studio/bible/decisions.md`).
 
 ### Scope of the plan: thin skeleton up front, deepened per sprint
 
@@ -201,7 +201,7 @@ number. No story is verifiable-done with failing or missing plan cases.
 ## Deciding the verification tier
 
 Read what `workflow-environment-detection` recorded, then decide and record the
-active tier in the Studio Bible (so the stakeholder knows how much was really
+active tier in `studio/bible/decisions.md` (so the stakeholder knows how much was really
 checked). Climb as high as the environment allows; Tier 0 is the floor.
 
 - **Tier 0 — unit/integration** (always): logic and rules. Must be green to
@@ -277,7 +277,7 @@ A story is QA-done when **all** hold:
   it, you don't waive it);
 - your **QA pass** found no blocking defect;
 - any new defects/cases were filed to the Producer / added to the plan;
-- the **active tier is recorded** in the Studio Bible, stating plainly what was
+- the **active tier is recorded** in `studio/bible/decisions.md`, stating plainly what was
   and wasn't verified;
 - for post-release work, the **regression suite (incl. saves) is green**.
 

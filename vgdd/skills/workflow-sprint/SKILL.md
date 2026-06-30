@@ -20,7 +20,7 @@ skills that own each piece — it does not re-implement them:
   `/CLAUDE.md`. This skill applies it; it does not restate the rules.
 
 If any of those skills is not yet authored (**[planned]**), follow the intent
-described here, make the best decision, log it in the Studio Bible, and continue.
+described here, make the best decision, log it in `studio/bible/decisions.md`, and continue.
 
 ---
 
@@ -63,7 +63,7 @@ an unrefined backlog.
 - **`collaborative`** — the **stakeholder** sets priorities. If they are absent
   when refinement is needed, surface it and wait (per the autonomy contract).
 - **`autonomous`** — the **Producer** derives priority from the GDD's value
-  signals and task dependencies, and **logs the ordering** in the Studio Bible
+  signals and task dependencies, and **logs the ordering** in `studio/bible/decisions.md`
   for later review. Build-order dependencies always win over nominal priority
   (you can't test scoring before a board exists).
 
@@ -195,7 +195,7 @@ demoable, but say so plainly — never imply more verification than happened.
 2. Turn stakeholder feedback and anything discovered during the sprint into
    **new backlog items** (they will be refined before a future sprint — not
    slipped into this one).
-3. Update the Studio Bible: what shipped, the verification tier reached, open
+3. Update the Studio Bible (the relevant docs + `decisions.md`): what shipped, the verification tier reached, open
    assumptions, and the next likely goal.
 4. Decide what's next:
    - backlog goal not yet met → run another sprint (back to step 0);
@@ -218,7 +218,7 @@ A sprint is done only when **all** hold:
 - every story's status was moved via **set-status** at each transition
   (`ready → in-sprint → in-review → done`), so `backlog.md`, `board.md`, and any
   tracker reflect reality — no story left showing a stale status;
-- the Studio Bible is updated.
+- the Studio Bible is updated (decisions logged; any deepened docs current).
 
 Code written but not demoable-and-verified does **not** count as a finished
 sprint. Don't declare victory at "it compiles."
