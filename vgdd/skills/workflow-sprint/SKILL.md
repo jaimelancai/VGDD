@@ -165,7 +165,8 @@ Verification has two layers, both required (see `director-qa`):
    **test-plan cases** (`studio/test-plan.md`) must pass at the active tier.
 
    - **Tier 0** unit/integration (always) — must be green to proceed.
-   - **Tier 1** build + smoke (with a display).
+   - **Tier 1** build + smoke (with a display) — the boot-and-runs check via
+     `qa-smoke-test`.
    - **Tier 2** device/simulator playtest (with a connected device).
    - **Tier 3** CI escalation (if CI is present).
 

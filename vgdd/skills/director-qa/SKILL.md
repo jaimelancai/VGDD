@@ -32,9 +32,10 @@ Everything here defers to the **autonomy contract** in `/CLAUDE.md`.
   regressed. Both are required for "done".
 - **Detecting the environment** — that is `workflow-environment-detection`. You
   *read* what it found and *decide* the tier; you do not probe the machine.
-- **Test harness mechanics** (running Unity batch mode, the smoke harness) —
-  those are the `qa-*` helper skills (**[planned]**, Phase 1–2). You say *what*
-  must be verified; they handle *how* it runs.
+- **Test harness mechanics** (running engine batch mode, the smoke harness) —
+  those are the `qa-*` helper skills, e.g. **`qa-smoke-test`** (authored) for the
+  Tier-1 boot-and-runs check. You say *what* must be verified; they handle *how*
+  it runs.
 
 ---
 
