@@ -24,7 +24,10 @@ project:
 - **`studio/bible/design.md`** — the pillars, core loop, and mechanics your task
   serves.
 - **`studio/test-plan.md`** — the test cases mapped to your story.
-- Your **task** in the backlog and the story it belongs to.
+- The **task you were dispatched to do** (by `workflow-sprint`) and the story it
+  belongs to. You don't pick work from the backlog — the sprint selected the story
+  by priority and handed you one task; you read the backlog for that task's detail
+  and context, not to choose it.
 
 If the architecture or conventions are unclear, follow them as written and log a
 question — don't invent a competing style.

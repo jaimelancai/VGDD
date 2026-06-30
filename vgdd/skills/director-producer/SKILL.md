@@ -181,8 +181,9 @@ sprint capacity, not to be precise. Don't agonize over S-vs-M.
 
 Refinement runs **before** sprints — in pre-production to build the first
 backlog, and between sprints to keep the next items ready. A story is **`ready`**
-when it is prioritized, sized (≤ L), described well enough to start, and its
-build-order dependencies are satisfiable.
+when it is prioritized, sized (≤ L), described well enough to start, its
+build-order dependencies are satisfiable, and **its tasks are listed in
+dependency order** (see step 4).
 
 Steps:
 1. **Decompose** — break the game design's scope into Epics → Stories → Tasks.
@@ -193,7 +194,13 @@ Steps:
    over nominal priority.** You cannot test scoring before a board exists; a
    booster needs the match engine first. Sequence so each story can actually be
    built when pulled.
-4. **Mark `ready`** the top stories a sprint will pull next.
+4. **Order tasks within each story by dependency.** A story's tasks are not
+   independent — "board data model" precedes "match detection" which needs a board
+   to detect on. List the tasks in the order they must be built, so the sprint can
+   dispatch them top-to-bottom and each engineer subagent receives a task whose
+   prerequisites already exist. A story whose tasks aren't ordered is **not
+   `ready`** — the engineer never figures out task order; you do, here.
+5. **Mark `ready`** the top stories a sprint will pull next.
 
 ### Who sets priority
 

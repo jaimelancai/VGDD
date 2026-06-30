@@ -97,10 +97,13 @@ an unrefined backlog.
 ## 2. Implement — one task at a time, tests first (mandatory)
 
 For each committed **story**, work proceeds on its `feature/<story-id>` branch.
-Dispatch a subagent per **task** to the right specialist (`engineer-gameplay`,
-`engineer-ui`, `engineer-backend`, `engineer-rendering`, `engineer-multiplayer`,
-`engineer-networking`, `engineer-tools-build`). Tasks are **commits on the story's
-feature branch** (each TDD'd), not separate branches — the feature branch lands as
+Dispatch a subagent per **task — in the dependency order the Producer set during
+refinement** (top-to-bottom; you don't re-decide the order) — to the right
+specialist (`engineer-gameplay`, `engineer-ui`, `engineer-backend`,
+`engineer-rendering`, `engineer-multiplayer`, `engineer-networking`,
+`engineer-tools-build`). Each subagent receives one task whose prerequisites
+already exist. Tasks are **commits on the story's feature branch** (each TDD'd),
+not separate branches — the feature branch lands as
 one reviewable unit.
 
 **Test-Driven Development is mandatory.** Every task follows red → green →
