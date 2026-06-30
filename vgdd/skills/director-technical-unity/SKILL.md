@@ -73,7 +73,7 @@ Default to **Microsoft's C# conventions** plus **Unity's C# style guidance**:
 - Keep MonoBehaviours thin; put logic in plain testable classes.
 
 Record these in the architecture document (overriding only where the tech design
-states a different preference) so every engineer subagent follows the same rules.
+states a different preference) so every engineer follows the same rules.
 
 ## Editor MCP
 

@@ -28,14 +28,15 @@ Two layers of skills:
   phase boundaries and big decisions. Invoked in pre-production and consulted
   across sprints.
 - **Engineers & specialists** (`engineer-*` and `qa-*` skills) — do the
-  per-task work, dispatched as subagents during sprints.
+  per-task work during sprints (in Claude Code, each task is dispatched to a
+  subagent; on other harnesses, worked in context).
 
 Plus **workflow** skills (`workflow-*` skills) that drive the loop itself,
 and **meta** skills (`meta-*` skills) like this one.
 
 ## How skills coordinate: shared files, not conversation
 
-Skills are invoked independently — often as fresh subagents with no memory of what
+Skills are often invoked with no memory of what
 another skill did. They coordinate by **reading and writing shared files**, not by
 talking to each other. The shared surfaces are:
 
@@ -92,8 +93,9 @@ and an initial `studio/backlog.md`.
 Driven by **`workflow-sprint`** (authored):
 1. **Plan** — Producer pulls items, splits anything larger than medium. Atomic
    unit = one feature demoable in a playtest. No XXL tasks in a sprint.
-2. **Implement** — dispatch a subagent per task to the right specialist skill
-   (gameplay, UI, backend, rendering, multiplayer, networking, tools/build).
+2. **Implement** — work each task with the right specialist skill (in Claude Code,
+   one subagent per task; see workflow-sprint) — gameplay, UI, backend, rendering,
+   multiplayer, networking, tools/build.
 3. **Review** — two-stage: spec-compliance, then code quality.
 4. **Test** — climb the verification ladder as far as the environment allows
    (see below).

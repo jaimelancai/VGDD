@@ -18,7 +18,7 @@ Everything here defers to the **autonomy contract** in `/CLAUDE.md`.
 
 ## Before you write anything
 
-You're a fresh subagent — read the shared context:
+You may be starting without the project loaded in context — read the shared Studio Bible documents first:
 - **`studio/bible/architecture.md`** — the **build pipeline** and project structure
   the Technical Director specified, the conventions, and the integration workflows
   (incl. when CI runs which tier).

@@ -97,14 +97,21 @@ an unrefined backlog.
 ## 2. Implement — one task at a time, tests first (mandatory)
 
 For each committed **story**, work proceeds on its `feature/<story-id>` branch.
-Dispatch a subagent per **task — in the dependency order the Producer set during
-refinement** (top-to-bottom; you don't re-decide the order) — to the right
-specialist (`engineer-gameplay`, `engineer-ui`, `engineer-backend`,
+Work the story's **tasks in the dependency order the Producer set during
+refinement** (top-to-bottom; you don't re-decide the order), applying the right
+specialist skill to each (`engineer-gameplay`, `engineer-ui`, `engineer-backend`,
 `engineer-rendering`, `engineer-multiplayer`, `engineer-networking`,
-`engineer-tools-build`). Each subagent receives one task whose prerequisites
-already exist. Tasks are **commits on the story's feature branch** (each TDD'd),
-not separate branches — the feature branch lands as
-one reviewable unit.
+`engineer-tools-build`). Each task is started only once its prerequisites exist.
+
+> **Execution mechanism (harness-dependent).** In **Claude Code**, dispatch each
+> task to a **subagent** — a fresh worker with its own context — so a large sprint
+> doesn't exhaust one context window and tasks stay isolated. On a harness without
+> subagents, work the tasks sequentially in context instead. Either way, the
+> *work* is the same; the specialist skill describes it, this dispatch is just how
+> the worker is spun up.
+
+Tasks are **commits on the story's feature branch** (each TDD'd), not separate
+branches — the feature branch lands as one reviewable unit.
 
 **Test-Driven Development is mandatory.** Every task follows red → green →
 refactor:

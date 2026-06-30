@@ -194,11 +194,11 @@ exactly the "dependencies beat nominal priority" rule in refinement.
 ## Conventions (you own them)
 
 You are the **owner of the team's coding conventions** — what keeps a swarm of
-engineer subagents producing *consistent*, not divergent, code. Derive them from
+engineers producing *consistent*, not divergent, code. Derive them from
 the technical design where it states a preference; otherwise apply the
 **engine-appropriate defaults from your engine overlay** (e.g. the engine vendor's
 official coding standard). Record the chosen conventions in the architecture
-document so every engineer subagent reads the same rules. Conventions cover naming,
+document so every engineer reads the same rules. Conventions cover naming,
 file/namespace/module layout, error handling, and how the logic/engine separation
 is expressed in code.
 

@@ -197,7 +197,7 @@ Steps:
 4. **Order tasks within each story by dependency.** A story's tasks are not
    independent — "board data model" precedes "match detection" which needs a board
    to detect on. List the tasks in the order they must be built, so the sprint can
-   dispatch them top-to-bottom and each engineer subagent receives a task whose
+   dispatch them top-to-bottom and each engineer receives a task whose
    prerequisites already exist. A story whose tasks aren't ordered is **not
    `ready`** — the engineer never figures out task order; you do, here.
 5. **Mark `ready`** the top stories a sprint will pull next.
