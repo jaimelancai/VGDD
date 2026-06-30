@@ -104,12 +104,13 @@ Driven by **`workflow-sprint`** (authored):
 6. **Update backlog** — feedback and discovered work become backlog items.
 
 ### Phase D — Release (a recurring gate, not the end)
-- **`workflow-release`** **[planned]** — cut a build per target platform, run
-  the release checklist, tag, produce a release (the first one is the beta).
+- **`workflow-release`** (authored) — stabilize a `release/*` branch, confirm the
+  verification gates, build the player (via the Tools/Build Engineer), version
+  (semver; first beta = 0.1.0) and tag. Engine-agnostic — calls down to build/QA.
   Crossing to an external store or deploy — or any update that reaches players
-  already running the game — hits the escalation line: stop and ask, in every
-  autonomy mode. Release is a gate the game passes through repeatedly over its
-  life, not a one-way door.
+  already running the game — hits the escalation line: **stop and hand the ship
+  decision to the human, in every autonomy mode.** Release is a gate the game
+  passes through repeatedly over its life, not a one-way door.
 
 ### Phase E — Live-ops & maintenance (after the first release)
 **[planned — framework Phase 7; not built yet]**

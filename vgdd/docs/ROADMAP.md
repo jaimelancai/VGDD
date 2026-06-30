@@ -34,10 +34,21 @@ This tracks the **framework build-out**, not the loop the framework runs.
    (`workflow-environment-detection`, `workflow-tool-provisioning`) — **done**
 
 **Phase 0 complete.** Authored: bootstrap (`CLAUDE.md`/`AGENTS.md`), the map
-(`meta-using-vgdd`), both input templates, `workflow-sprint`, the four Directors
-(`director-technical` + `director-technical-unity`, `director-game-design`,
-`director-qa`, `director-producer`), and the two intake workflow skills.
-Still `[planned]` for Phase 1: `workflow-intake`, `workflow-release`, and the
-`engineer-*` / `qa-*` execution skills.
+(`meta-using-vgdd`), both input templates, the Studio Bible template set,
+`workflow-sprint`, the four Directors (`director-technical` +
+`director-technical-unity`, `director-game-design`, `director-qa`,
+`director-producer`), and the two intake workflow skills.
+
+**Phase 1 — complete loop for a first test (in progress).** Authored toward an
+end-to-end runnable studio for a simple Unity game: `workflow-intake`,
+`engineer-gameplay` (+unity), `engineer-ui` (+unity), `engineer-tools-build`
+(+unity), `qa-smoke-test` (+unity), and `workflow-release`. This closes the loop
+intake → pre-production → sprints → release for a simple game.
+Still `[planned]`: the remaining engineers (`engineer-backend`,
+`engineer-rendering`, `engineer-multiplayer`, `engineer-networking`) — written
+when a design needs them — and further `qa-*` helpers.
+
+> Next: a first test with a deliberately tiny game design, to see the loop run
+> end-to-end and surface what needs refining before broadening.
 
 See `VGDD-PLAN-v3.md` for the full design rationale.
