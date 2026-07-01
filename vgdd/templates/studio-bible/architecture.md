@@ -11,7 +11,9 @@
 <!-- layers/modules, key boundaries, the logic/engine separation for testability -->
 
 ## Project structure
-<!-- folders, modules/assemblies, where things live -->
+<!-- folders, modules/assemblies, where things live.
+     Note the resolved project layout: engine project at the repo root, or in
+     GameProject/ (from environment-detection). Record which, so all skills agree. -->
 
 ## Conventions
 <!-- the team's coding standards (engine-appropriate); every engineer follows these -->

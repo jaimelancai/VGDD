@@ -40,6 +40,22 @@ Putting rules directly in a MonoBehaviour means they land in `Assembly-CSharp` a
 - Keep EditMode and PlayMode tests in **separate assemblies** (UTF requires it).
 - Add `"defineConstraints": ["UNITY_INCLUDE_TESTS"]` so test assemblies are
   excluded from shipping builds.
+- **Use the modern test-asmdef format** — explicit `references` to
+  `"UnityEngine.TestRunner"` and `"UnityEditor.TestRunner"` (plus your game
+  assemblies). **Do NOT use the deprecated `"optionalUnityReferences": ["TestAssemblies"]`** —
+  on Unity 6 it conflicts with explicit TestRunner references and produces
+  "duplicate references" errors. (Hit and fixed on a real Unity 6 run.) A working
+  EditMode test asmdef:
+  ```json
+  {
+    "name": "Match3.Logic.Tests",
+    "references": ["Match3.Logic", "UnityEngine.TestRunner", "UnityEditor.TestRunner"],
+    "includePlatforms": ["Editor"],
+    "defineConstraints": ["UNITY_INCLUDE_TESTS"],
+    "overrideReferences": true,
+    "precompiledReferences": ["nunit.framework.dll"]
+  }
+  ```
 
 Example EditMode test (logic, no engine):
 ```csharp

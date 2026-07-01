@@ -73,11 +73,12 @@ an unrefined backlog.
 
 1. Read `autonomy_level` and the current state from the Studio Bible and backlog.
 2. **First sprint?** The Technical Director has already **scaffolded** a minimal
-   running Unity project + green test harness at `GameProject/` during
-   pre-production (see `director-technical`). Do not recreate it. Confirm it
-   exists and Tier-0 tests run green; if it's somehow missing, hand back to the
-   Technical Director to scaffold before proceeding. The first sprint then builds
-   the **smallest playable fragment of the core loop** *on* that scaffold.
+   running engine project + green test harness during pre-production, at the
+   resolved project path (repo root or `GameProject/` — see `director-technical`).
+   Do not recreate it. Confirm it exists and Tier-0 tests run green; if it's
+   somehow missing, hand back to the Technical Director to scaffold before
+   proceeding. The first sprint then builds the **smallest playable fragment of the
+   core loop** *on* that scaffold.
 3. **Pull** the highest-priority *ready* items from the top of the backlog into
    the sprint, up to a sensible capacity. Respect the one-demoable-feature floor:
    a sprint must produce at least one feature you can show in a playtest. For each
@@ -213,6 +214,14 @@ demoable, but say so plainly — never imply more verification than happened.
    - a release target is met → go to `workflow-release`;
    - post-release and the backlog is drained → idle until new reports/requests
      arrive, then refine and resume.
+
+> **This is a safe checkpoint to clear context.** At sprint close everything
+> durable is on disk — stories committed, statuses set, the Bible updated, the demo
+> tagged. If the session is getting large, this is the point to clear and start a
+> fresh session; `workflow-resume` will read `studio/` + git and continue from
+> here. The **sprint boundary is the recommended clear-point**; a **completed
+> story** within a large sprint is also safe. Never clear mid-task (uncommitted
+> work) — finish and commit first. (See `workflow-resume`.)
 
 ---
 

@@ -9,6 +9,15 @@ workflow of a full game studio.
 map to every skill and the order they fire in. Do not start designing or writing
 code before you have read it.
 
+**New project or resuming one?** Check whether `studio/` already has state
+(a populated `studio/backlog.md`, `studio/bible/`):
+- **No / empty** → this is a new project: start with **`workflow-intake`**.
+- **Yes, already populated** → this is an existing project being resumed in a fresh
+  session: start with **`workflow-resume`**, which rebuilds "where are we?" from
+  disk and continues from the right point. This is how a project outlives one
+  context window — work to a safe checkpoint (a sprint boundary), clear context,
+  and resume in a new session.
+
 ---
 
 ## The one rule

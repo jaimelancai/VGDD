@@ -32,6 +32,9 @@ The base skill owns the responsibilities; this owns the Unity mechanics.
 
 - Tests run via **`Unity -runTests -batchmode`** with `-testPlatform EditMode` /
   `PlayMode`, emitting NUnit-format XML to `-testResults`.
+- **Never combine `-quit` with `-runTests`.** The test runner exits by itself when
+  the run finishes; adding `-quit` makes Unity quit before tests complete and you
+  get no results. `-quit` is for builds only. (Learned on a real Unity 6 run.)
 - **Headless / no-GPU machines need `xvfb-run`** prepended to the Unity command
   (Linux virtual framebuffer); environment detection reports whether a display
   exists.
@@ -40,11 +43,19 @@ The base skill owns the responsibilities; this owns the Unity mechanics.
   that read arguments from environment variables / `Environment.GetCommandLineArgs()`,
   never from method parameters.
 - Builds are produced via such an `-executeMethod` build target per platform.
+- **Close the Unity Editor before batch builds/tests.** An open Editor holds the
+  project lock (`Temp/UnityLockfile`), and batch-mode operations that write assets
+  or run tests will conflict with it. If the Editor is open, do markdown-only work
+  (other Directors, backlog) first and run the batch commands once it's closed.
+  (Surfaced on a real run — the studio reordered around it, but plan for it.)
 
 ## Scaffolding recipe (the Unity "how" for the base's scaffold step)
 
 For the **game client**, the scaffold the base requires means concretely:
-- A Unity project at `GameProject/` that opens and builds on the resolved
+- A Unity project at the **project path environment-detection resolved** — an
+  existing project at the repo root or in `GameProject/` is **adopted where it is**;
+  only a from-nothing project is created (default `GameProject/`). It must open and
+  build on the resolved
   version, with URP/Input System configured as resolved.
 - `.asmdef` files splitting a logic assembly from the engine assembly, plus
   EditMode/PlayMode test assemblies.

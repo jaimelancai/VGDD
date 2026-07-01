@@ -52,9 +52,9 @@ Unity -quit -batchmode -projectPath <proj> \
       -executeMethod VgddBuild.BuildPlayer \
       -logFile <build.log>
 ```
-- `-projectPath` and `-quit` are **required**; `-batchmode`, `-logFile`, and
-  `-buildTarget` are recommended. `-nographics` may be added for headless builds
-  that don't need the GPU.
+- `-projectPath` and `-quit` are **required for a build**; `-batchmode`,
+  `-logFile`, and `-buildTarget` are recommended. `-nographics` may be added for
+  headless builds that don't need the GPU.
 - On **headless Linux**, prepend `xvfb-run` (per environment detection) so Unity has
   a virtual display.
 - The script's `EditorApplication.Exit(1)` on failure is what gives CI a non-zero
@@ -62,12 +62,16 @@ Unity -quit -batchmode -projectPath <proj> \
 
 ## The test command (Tier 0 / 1)
 
-Tests use the **same batch shape**, just `-runTests`:
+Tests use a similar batch shape, plus `-runTests`:
 ```
 Unity -batchmode -runTests -projectPath <proj> \
       -testPlatform <EditMode|PlayMode> \
       -testResults <results.xml> -logFile <test.log>
 ```
+- **Do NOT pass `-quit` with `-runTests`.** They conflict — the test runner exits
+  the editor itself when the run finishes, and adding `-quit` makes Unity quit
+  before tests complete, producing no results. `-quit` is for **builds**;
+  `-runTests` omits it. (Confirmed the hard way on a real Unity 6 run.)
 - EditMode for fast logic tests (the Tier-0 workhorse); PlayMode for runtime.
 - Emits **NUnit-format XML** to `-testResults` — machine-readable for CI gating.
 - `xvfb-run` on headless Linux as above.

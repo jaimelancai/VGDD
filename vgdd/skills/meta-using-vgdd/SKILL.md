@@ -59,16 +59,21 @@ two-masters conflicts between skills.
 
 ## The studio loop (the order things happen)
 
-### Phase A — Intake
-- **`workflow-intake`** (authored) — the front door: cold-start setup (git,
-  studio files, copying templates if missing), read the two documents, run
-  environment detection, then sequence the Directors through pre-production. Read
+### Phase A — Intake (new project) or Resume (existing)
+- **`workflow-intake`** (authored) — the front door for a **new** project:
+  cold-start setup (git, studio dirs), read the two documents, run environment
+  detection, then sequence the Directors through pre-production. Read
   `design/game-design.md` and `design/tech-spec.md`. Never stall on a thin spec.
+- **`workflow-resume`** (authored) — the front door for an **existing** project in
+  a fresh session: rebuild "where are we?" from disk (`studio/` + git) and continue
+  from the right point (mid-sprint / between sprints / live-ops). This is what lets
+  a project outlive one context window — clear at a safe checkpoint (a sprint
+  boundary), start a new session, resume. Redoes nothing already `done`.
 - **`workflow-environment-detection`** (authored) — Detect git remote, CI,
-  GPU/display, connected devices, a working Unity, and any connected **engine
-  Editor MCP** (e.g. a Unity Editor MCP server). Set the verification tier, note
-  whether an Editor MCP is in the loop, and set the tool-provisioning level.
-  Record findings in `studio/bible/environment.md`.
+  GPU/display, connected devices, a working Unity, the **project layout** (engine
+  project at repo root vs. `GameProject/`), and any connected **engine Editor MCP**.
+  Set the verification tier, note whether an Editor MCP is in the loop, set the
+  tool-provisioning level. Record findings in `studio/bible/environment.md`.
 
 ### Phase B — Pre-production (Directors)
 Run once at project start; revisited when the GDD changes materially.
@@ -190,7 +195,7 @@ Studio Bible.
 - This map → `.vgdd/skills/meta-using-vgdd/SKILL.md`
 - How to author a new skill → `.vgdd/skills/meta-writing-skills/SKILL.md` **[planned]**
 - Inputs you read → `design/game-design.md`, `design/tech-spec.md`
-- Your outputs → `studio/bible/`, `studio/backlog.md`, `studio/board.md`, `studio/test-plan.md`, `GameProject/`,
+- Your outputs → `studio/bible/`, `studio/backlog.md`, `studio/board.md`, `studio/test-plan.md`, the resolved game-project path (repo root or `GameProject/`),
   `builds/`
 
 If a step's skill is **[planned]** and absent: act on the intent above, log your

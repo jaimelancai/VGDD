@@ -36,6 +36,16 @@ Probe for each, and record present/absent plus any detail:
    (not for setup/build/test — see the Technical Director).
 7. **Other required runtimes** — if the design needs a backend/services, are their
    runtimes (e.g. Node, a DB) present? Note gaps for provisioning.
+8. **Project layout** — is there **already an engine project**, and where? Look for
+   engine project markers (for Unity: `Assets/`, `ProjectSettings/`,
+   `ProjectSettings/ProjectVersion.txt`). Record which layout applies:
+   - **at the repo root** (markers alongside `.vgdd/`, `studio/`, `design/`) — the
+     common case when someone drops VGDD into a project they already created;
+   - **in a `GameProject/` subfolder** — the VGDD scaffold default;
+   - **none yet** — a fresh folder; the Technical Director will create the project
+     (scaffolding into `GameProject/` by default).
+   The studio **adopts an existing project wherever it is** rather than
+   restructuring it. Record the resolved project path so every skill uses it.
 
 ## Setting the verification tier
 

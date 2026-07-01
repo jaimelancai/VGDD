@@ -25,10 +25,15 @@ Make the project ready to work in, handling the "just cloned it" case:
    `.vgdd/templates/` into `design/`, tell the person to fill it in and set
    `status: ready`, and stop here. Do not invent a game design for them — the GDD
    is the one thing the studio genuinely needs from a human.
-3. **Studio scaffolding** — ensure `studio/` exists with `studio/bible/` (copy the
-   blank Bible document set from `.vgdd/templates/studio-bible/`), and empty
-   `studio/backlog.md`, `studio/board.md`, `studio/test-plan.md` to be populated
-   by their owners.
+3. **Studio scaffolding** — ensure `studio/` and `studio/bible/` **directories**
+   exist. Do **not** pre-copy the Bible template files into `studio/bible/` — the
+   `.vgdd/templates/studio-bible/` files are **reference for structure only**. Each
+   owning skill *creates* its own Bible document when it first writes
+   (`architecture.md` by the Technical Director, `environment.md` by
+   environment-detection, etc.). Pre-seeding them means the owning skills hit a
+   "must read the existing file before overwriting" collision. Leave the directory
+   empty; let owners create. (Likewise `studio/backlog.md`, `board.md`,
+   `test-plan.md` are created by their owners, not pre-seeded.)
 
 ## 1. Check readiness
 
