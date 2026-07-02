@@ -63,6 +63,15 @@ For the **game client**, the scaffold the base requires means concretely:
   including one trivial passing EditMode test proving the pipeline end-to-end.
 - A parameterless `static` build entry point under `Assets/Editor/` for
   `-executeMethod`.
+- **Unity git discipline, set up at scaffold time** (before the first commit):
+  - a Unity-appropriate **`.gitignore`**: ignore `Library/`, `Temp/`, `obj/`,
+    `Logs/`, `UserSettings/`, `MemoryCaptures/`, and the `builds/` output dir;
+  - **track `.meta` files** — Unity generates one per asset and asset references
+    break without them. `Assets/**` including every `*.meta` is version-controlled.
+    (Learned on a real run: discovering this mid-sprint forces a corrective
+    commit; set it up front.)
+  - if the repo may move between OSes, a `.gitattributes` with `* text=auto`
+    avoids line-ending churn.
 - Committed on `develop` per GitFlow.
 
 Backend/multiplayer skeletons the design requires are scaffolded in their own

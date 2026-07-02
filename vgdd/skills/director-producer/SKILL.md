@@ -245,7 +245,9 @@ hotfix/*    ← off main,    into main AND develop. Emergency fix to a live buil
 - **Tasks** are **commits within** that feature branch (each TDD'd: red → green →
   refactor), *not* their own branches. This keeps us standard and avoids a swarm
   of tiny branches. The feature branch lands as one reviewable unit (a PR with a
-  remote; a local merge otherwise).
+  remote; a local merge otherwise). **Delete the feature branch after it merges**
+  (standard GitFlow) — the merge commit preserves the history; keeping merged
+  branch refs around just accumulates stale clutter over a long project.
 - A **sprint** is a set of feature branches, not a branch itself — it's a *time
   box*, tracked in the backlog, not in git. (This replaces the earlier
   non-standard `sprint/` branch.)
