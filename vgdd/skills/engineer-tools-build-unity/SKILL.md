@@ -78,6 +78,16 @@ Unity -batchmode -runTests -projectPath <proj> \
 
 ## CI wiring
 
+**Cross-building constraint (verified):** IL2CPP players can only be built from an
+editor **on the target platform** — the sole exception is *Linux as a target*,
+which can be IL2CPP-cross-built from Windows/macOS via Unity's sysroot/toolchain
+packages. Practical consequences: a Linux/macOS host can build a **Windows player
+with the Mono backend only** (install the *Windows Build Support (Mono)* module
+via Hub; the IL2CPP variant isn't offered there); a **Windows IL2CPP** build
+requires a Windows host. Plan release builds accordingly — and remember building
+an artifact is not smoking it: booting a Windows `.exe` still needs Windows (or
+Wine).
+
 When CI is present (per environment detection), the CI job **invokes these same
 commands** — it is not a second build path. Typical gates: run EditMode + PlayMode
 tests on every PR into `develop`; run a player build on release branches.
