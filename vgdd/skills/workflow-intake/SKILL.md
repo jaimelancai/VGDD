@@ -50,9 +50,16 @@ tell the person what's needed and stop — don't start on an unfinished design.
 - **`design/game-design.md`** — the *what* (design intent).
 - **`design/tech-spec.md`** — the *how*: the five frontmatter keys exactly, the
   prose as intent.
+- **`design/assets.md` + `design/assets/`** — *optional third input*: the
+  stakeholder's asset manifest and source files (art/audio). If present, note it
+  for the **`tech-art`** skill to inventory during sprints. If absent, that is
+  normal and often **deliberate** — a common strategy is to build the whole MVP
+  on generated placeholders to validate the mechanics first, adding real
+  art/audio later. Every needed asset gets a placeholder; the assets-wanted list
+  at demos is informational, never a blocker or a nag.
 
 Don't resolve gaps yourself — that's each Director's job for their own area. You
-just make sure both documents are read and available.
+just make sure the documents are read and available.
 
 ## 3. Detect the environment
 

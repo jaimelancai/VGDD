@@ -53,8 +53,10 @@ matters, PlayMode/build smoke tests. Don't skip testable logic because "it's UI"
   expose and send intents back, you don't implement rules.
 - **Which UI system / architecture / conventions** are the Technical Director's —
   you work within them.
-- **Visual/art assets** are placeholder-first this phase (Art Director arrives
-  later) — use simple placeholders; don't block on final art.
+- **Visual/art assets** are owned by **`tech-art`** — consume sprites/fonts via
+  its inventory (`studio/bible/assets.md`) and naming conventions; don't import
+  or configure assets yourself, and never block on missing art (tech-art
+  provides placeholders for anything not yet supplied).
 - **Test strategy and the QA pass** are the QA Director's.
 
 ## Definition of done (for a UI task)

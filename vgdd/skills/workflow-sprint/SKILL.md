@@ -102,7 +102,7 @@ Work the story's **tasks in the dependency order the Producer set during
 refinement** (top-to-bottom; you don't re-decide the order), applying the right
 specialist skill to each (`engineer-gameplay`, `engineer-ui`, `engineer-backend`,
 `engineer-rendering`, `engineer-multiplayer`, `engineer-networking`,
-`engineer-tools-build`). Each task is started only once its prerequisites exist.
+`engineer-tools-build`, `tech-art` for art-asset tasks). Each task is started only once its prerequisites exist.
 
 > **Execution mechanism (harness-dependent).** In **Claude Code**, dispatch each
 > task to a **subagent** — a fresh worker with its own context — so a large sprint

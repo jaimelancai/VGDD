@@ -63,7 +63,7 @@ two-masters conflicts between skills.
 - **`workflow-intake`** (authored) — the front door for a **new** project:
   cold-start setup (git, studio dirs), read the two documents, run environment
   detection, then sequence the Directors through pre-production. Read
-  `design/game-design.md` and `design/tech-spec.md`. Never stall on a thin spec.
+  `design/game-design.md`, `design/tech-spec.md`, and (optional) `design/assets.md` + `design/assets/`. Never stall on a thin spec.
 - **`workflow-resume`** (authored) — the front door for an **existing** project in
   a fresh session: rebuild "where are we?" from disk (`studio/` + git) and continue
   from the right point (mid-sprint / between sprints / live-ops). This is what lets
@@ -100,7 +100,10 @@ Driven by **`workflow-sprint`** (authored):
    unit = one feature demoable in a playtest. No XXL tasks in a sprint.
 2. **Implement** — work each task with the right specialist skill (in Claude Code,
    one subagent per task; see workflow-sprint) — gameplay, UI, backend, rendering,
-   multiplayer, networking, tools/build.
+   multiplayer, networking, tools/build — plus **tech-art** (authored, + Unity
+   overlay: owner of art assets — source→engine pipeline, inventory in
+   `studio/bible/assets.md`, placeholders, batched asset asks at demos) and
+   **tech-audio** [planned], its audio mirror.
 3. **Review** — two-stage: spec-compliance, then code quality.
 4. **Test** — climb the verification ladder as far as the environment allows
    (see below).
@@ -194,7 +197,7 @@ Studio Bible.
 - Autonomy rules → `/CLAUDE.md`
 - This map → `.vgdd/skills/meta-using-vgdd/SKILL.md`
 - How to author a new skill → `.vgdd/skills/meta-writing-skills/SKILL.md` **[planned]**
-- Inputs you read → `design/game-design.md`, `design/tech-spec.md`
+- Inputs you read → `design/game-design.md`, `design/tech-spec.md`, optional `design/assets.md` + `design/assets/`
 - Your outputs → `studio/bible/`, `studio/backlog.md`, `studio/board.md`, `studio/test-plan.md`, the resolved game-project path (repo root or `GameProject/`),
   `builds/`
 

@@ -20,6 +20,7 @@ load only what they need.
 | `design.md` | **Game Design Director** | pillars, precise core loop, mechanics, progression, the minimum-shippable definition + full target | stable reference, deepens with the design |
 | `environment.md` | **workflow-environment-detection** | capability report (git/remote, CI, display, devices, engine+version, Editor MCP, runtimes), the active verification-tier ceiling, provisioning context | snapshot, rewritten only if the environment changes |
 | `provisioning.md` | **workflow-tool-provisioning** | log of tools installed/guided, with exact commands | append-only log |
+| `assets.md` | **tech-art** | asset inventory: provided assets (source → engine mapping, licenses), placeholders (= the assets-wanted list), asset conventions | living, updated as assets arrive |
 | `decisions.md` | **shared, append-only** | assumptions and decisions logged as the studio resolves ambiguity (each entry notes which skill made it) | append-only journal |
 
 The **backlog** (`studio/backlog.md`), **board** (`studio/board.md`), and **test
