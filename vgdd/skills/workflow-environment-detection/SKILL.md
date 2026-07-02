@@ -31,6 +31,14 @@ Probe for each, and record present/absent plus any detail:
    what version? (Resolves `unity_version: auto` etc.) **If the required engine
    is missing, this is a hard blocker** — surface it and route to
    `workflow-tool-provisioning` for guidance (the engine is never auto-installed).
+   **Also check the build-target support modules for every platform the tech spec
+   names** (e.g. Unity's per-platform Build Support modules, Hub-installed): an
+   engine can be present yet unable to *build the shippable target*. A missing
+   module is not a blocker for development, but record it prominently and give
+   the install guidance now — don't let "the shippable platform can't actually be
+   built here" go undiscovered until someone first cuts that build. (Learned on a
+   real run: the spec's Windows target was unbuildable for two sprints because
+   the Linux host had only Linux Build Support, and nothing checked.)
 6. **Engine Editor MCP** — is an engine Editor MCP server (e.g. a Unity Editor
    MCP) connected? If so, note it: it's available for *interactive/QA work only*
    (not for setup/build/test — see the Technical Director).
