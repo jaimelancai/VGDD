@@ -189,6 +189,17 @@ demoable, but say so plainly — never imply more verification than happened.
 1. Build a **playable demo** of the increment and tag it (e.g. `demo/sprint-<n>`).
    The demo is built in **every** mode — it is the proof the sprint produced
    something real.
+
+   **The demo must be runnable by the stakeholder, not just by tests.** "The
+   PlayMode tests exercise it" is *not* a demo — the human must be able to launch
+   and interact with the increment themselves. Concretely: the feature is wired
+   into the game's **boot scene** (pressing Play in the editor shows it, and the
+   built player boots into it), and the demo report includes **exact
+   how-to-run instructions** (which executable/scene, what to click, what to
+   expect). If the increment only materializes inside test code, wiring it into
+   a launchable scene is part of the sprint, not optional polish. (Learned on a
+   real run: a sprint shipped a fully-tested board the stakeholder couldn't
+   open.)
 2. Then apply the autonomy contract (`/CLAUDE.md`):
    - **`collaborative`** — **stop** and present the demo for stakeholder
      feedback. Do not start the next sprint until you have it.
@@ -228,7 +239,9 @@ demoable, but say so plainly — never imply more verification than happened.
 ## Definition of done (for the sprint)
 
 A sprint is done only when **all** hold:
-- at least one feature is **playable in the demo build**;
+- at least one feature is **playable in the demo build**, launchable by the
+  stakeholder themselves (wired into the boot scene, with how-to-run
+  instructions) — tests exercising it does not count;
 - every committed task passed both review stages;
 - each story's **test-plan cases pass** at the active tier and the QA Director's
   **QA pass** found no blocking defect (see `director-qa`);

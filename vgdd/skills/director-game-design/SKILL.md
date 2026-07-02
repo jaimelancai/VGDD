@@ -46,6 +46,15 @@ A built feature is reviewed on three axes, three owners, no overlap:
 
 You own the first lens in the sprint's two-stage review.
 
+**Spec-compliance checks literal design values, not just behavior.** Compare the
+concrete numbers and facts in the diff against the GDD: board sizes, move counts,
+piece/colour counts, objective targets, timings — anything the design states as a
+value. **Any constant that matches nothing in the design is a review reject**
+unless it is logged in `decisions.md` as a deliberate choice with a reason. (A
+real run shipped an 8×8 demo board when the design defined only 7×7/9×9 — the
+rules were right, the number was invented and unlogged. Behavior passing does not
+excuse an undocumented magic value.)
+
 ---
 
 ## Reading the game design document

@@ -35,9 +35,14 @@ You are a fresh session with an empty context — rebuild the picture from disk:
    - on `develop` with the last tag `demo/sprint-N` → **between sprints**;
    - last tag a release (`v*`) on `main` → **between releases / live-ops**.
 
-Re-run **`workflow-environment-detection`** only if the environment may have changed
-(new machine, engine updated) — e.g. resuming on a different OS. Otherwise trust the
-recorded `environment.md`.
+**Before trusting `environment.md`, check it still describes this machine.** The
+recorded environment may be from a different host — projects move (Linux →
+Windows, a new machine, an upgraded engine). Compare cheap markers against the
+report: current **OS**, whether the recorded **engine binary path exists**, and
+whether the recorded display/CI facts plausibly apply. On any mismatch, **re-run
+`workflow-environment-detection`** before continuing — the tier ceiling, engine
+path, and build strategy (e.g. "Linux build for local smoke") may all change with
+the host. On a match, trust the report and don't re-detect.
 
 ## Where to resume from
 
