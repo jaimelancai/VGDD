@@ -214,6 +214,13 @@ You uphold internal quality through process, not just hope:
   violates the architecture or conventions goes back.
 - Track and surface **technical debt** — when a shortcut is taken to hit a demo,
   record it as a backlog item (via the Producer) rather than letting it rot.
+- **Compiler and deprecation warnings are tech debt, not noise.** Read the build
+  log's warnings, not just its errors: keep the build warning-clean, and treat any
+  *new* warning in a diff as a code-quality-review item — fix it, or log why it
+  stays. Deprecated-API warnings in particular are future compile errors (engine
+  APIs churn; on a real run, the "modern" object-lookup API was itself deprecated
+  by the next engine version, and nothing flagged it for four sprints because
+  only errors were watched.)
 - Keep the architecture document current as systems deepen.
 
 ---

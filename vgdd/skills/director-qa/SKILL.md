@@ -236,6 +236,14 @@ sprint's increment. This is where defects that unit tests can't see are found:
 - **Use the Editor MCP** when available to drive and inspect the live build;
   otherwise QA against the Tier-1 build, or — at Tier 0 only — review behavior
   through tests and note that interactive QA wasn't possible.
+- **When the dev host and ship target differ (OS or graphics backend), ask the
+  stakeholder for a visual pass on the target platform at each demo.** Some
+  rendering bugs are per-backend and structurally invisible to the studio's
+  automation — on a real run, a HUD drawn with a URP-incompatible text shader
+  rendered fine on the Linux/OpenGL dev host and was invisible on the
+  Windows/D3D11 target; every batch test and smoke passed. Name it explicitly in
+  the demo notes: "please confirm visually on <target> — my verification can't
+  see that backend."
 
 Defects you find become **new backlog items** (hand to the Producer) and, where
 they reveal a missing case, **new test-plan cases**. A blocking defect sends the
