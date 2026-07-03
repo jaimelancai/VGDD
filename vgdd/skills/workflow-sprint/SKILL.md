@@ -203,6 +203,15 @@ demoable, but say so plainly — never imply more verification than happened.
 2. Then apply the autonomy contract (`/CLAUDE.md`):
    - **`collaborative`** — **stop** and present the demo for stakeholder
      feedback. Do not start the next sprint until you have it.
+
+     **Two kinds of open question, two different rules.** *Sprint direction at
+     the boundary* (which goal/stories the next sprint pursues) **is the
+     collaborative gate itself — it waits for the stakeholder, however long;
+     never timeout-default it.** *Mid-sprint clarifications* (a design detail, a
+     format choice) follow decide-default-log-continue if the stakeholder is
+     away. Choosing the next sprint's direction on the stakeholder's behalf in
+     collaborative mode is an overstep, even with a logged rationale — the
+     boundary is exactly where they steer.
    - **`autonomous`** — record the demo and **continue**; it is not a blocking
      gate. (But remember: if this increment would *ship to live players*, that is
      always escalation-gated regardless of mode.)
