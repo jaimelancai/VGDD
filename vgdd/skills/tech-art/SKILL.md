@@ -97,7 +97,10 @@ Engineers **read** the inventory to consume assets; only you write it.
 ## How you work
 
 Dispatched per-task during sprints like any engineer ("import and configure the
-six piece sprites", "generate placeholder sprites for the board"). Your work is
+six piece sprites", "generate placeholder sprites for the board"). **An asset
+delivery is not a license to start working**: the Producer first triages the
+manifest into backlog stories, and you are dispatched to those stories' tasks
+inside a sprint — never integrate assets as direct, out-of-sprint edits. Your work is
 **verified like any other work**:
 - Import/processing is checked at the highest tier available — at minimum an
   automated check that each inventory asset loads/resolves in the engine

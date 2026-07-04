@@ -56,9 +56,12 @@ From the reconstructed state, pick up at the right point:
   confirm the `ready` set still makes sense, then start the next sprint via
   **`workflow-sprint`**. In `collaborative` mode, this is also the natural point to
   fold in any stakeholder feedback from the last demo.
-- **Between releases / live-ops** — resume the live-ops loop: triage any reported
-  bugs into the backlog (Producer) with reproduce-first cases (QA Director), or
-  start the next milestone's sprints.
+- **Between releases / live-ops** — resume the live-ops loop: **any new
+  stakeholder input found on disk (new/changed files under `design/`, e.g. an
+  asset delivery) or reported in conversation goes to the Producer for triage
+  into the backlog first**, then flows through the normal sprint loop — bugs
+  additionally get reproduce-first cases (QA Director). Never implement new
+  input directly without a backlog story and a sprint.
 
 Then continue the normal loop. You are not re-planning the project — you're
 re-entering a loop that was designed to be re-enterable.

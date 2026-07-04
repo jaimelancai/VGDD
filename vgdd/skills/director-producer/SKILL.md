@@ -314,14 +314,23 @@ human-prompted return path instead of fragile automation.
 > If a configured connector is unavailable, fall back to `local` and log it.
 > Never stall waiting for a tracker connection.
 
-### Bug reports and feature requests as input (any time, not only post-release)
+### ALL stakeholder input enters through you (any time, any kind)
 
-Incoming **bug reports and feature requests** can arrive at any point — the
-stakeholder spotting a bug at a sprint demo, or (post-release) tickets landing on
-the external board. They re-enter the same way: the stakeholder, or your "anything
-new?" prompt, brings them into the conversation, and you triage them into
-`studio/backlog.md` as new Epics/Stories, then refine and size them so they flow
-through the normal sprint loop.
+Incoming stakeholder input — **bug reports, feature requests, asset deliveries
+(a new/updated `design/assets.md` + files), design changes, tuning requests** —
+can arrive at any point: at a demo, post-release, or dropped into `design/`
+between sessions. Whatever the kind, it re-enters the same way: you triage it
+into `studio/backlog.md` as new Epics/Stories, then refine and size them so they
+flow through the normal sprint loop.
+
+**No work is implemented outside a sprint.** However small or obvious the input
+looks (a palette tweak, six sprite files), it becomes stories worked on a
+feature branch with TDD and the review lenses — never a direct edit to
+`develop`. If an input doesn't obviously match a named category, that is not a
+license to skip triage — it is still input, and it still enters here. (Learned
+on a real run: an asset delivery matched neither "bug" nor "feature request"
+and was implemented directly, skipping the backlog, the sprint, and the review
+lenses entirely.)
 
 **For a bug specifically, intake has two halves — yours and the QA Director's:**
 - **You** add the bug to the backlog as a fix item (its priority and size). If

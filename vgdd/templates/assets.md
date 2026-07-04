@@ -44,7 +44,12 @@ status: ready
 
 <!-- Anything the studio should know: visual style references, licensing
      constraints on provided files, naming schemes, which assets are final vs.
-     drafts likely to be replaced. -->
+     drafts likely to be replaced.
+     NOTE: the studio reads this document literally, like a contract. If a
+     decision here must WAIT for your explicit confirmation before being
+     implemented, say so in those words ("propose and wait for my approval") —
+     otherwise, written intent plus the autonomy contract lets the studio
+     proceed with a logged decision and confirm at the demo. -->
 
 ## Attribution / licensing
 
