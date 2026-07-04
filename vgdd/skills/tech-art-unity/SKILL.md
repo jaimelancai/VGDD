@@ -83,7 +83,10 @@ Tier 0 instead of appearing as a mystery pink/missing sprite at runtime.
 
 ## Swap-in (real assets replacing placeholders)
 
-When the stakeholder drops real files into `design/assets/`: copy in, apply the
+When the stakeholder drops real files into `design/assets/`: first check that
+**Git LFS is active** for binary types (the `.gitattributes` template declares
+the filters; `git-lfs` must be installed — if it isn't, route to provisioning
+before committing heavy binaries into plain git history). Then copy in, apply the
 same import settings, **keep the same file name/path** so no code or prefab
 changes are needed (that's the point of the naming convention), flip the
 inventory entry from `placeholder` to `provided`, and let the existing

@@ -20,6 +20,9 @@ Probe for each, and record present/absent plus any detail:
 
 1. **Git + remote** — is `git` available? Is there a remote configured (or a
    connector for one)? This informs `vcs` handling (local-only vs. push/PR).
+   Also note whether **`git-lfs`** is installed — the Unity `.gitattributes`
+   template declares LFS filters for binary assets, which must only be applied
+   when the tool exists.
 2. **CI** — is a CI system present (GitHub Actions config, Jenkins)? Enables
    Tier 3.
 3. **Display / GPU** — is there a graphical display? On headless Linux, note that

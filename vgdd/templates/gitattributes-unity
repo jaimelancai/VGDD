@@ -1,0 +1,49 @@
+# Unity project .gitattributes — VGDD template.
+# Copied to the game project's root at scaffold time alongside gitignore-unity.
+#
+# NOTE ON LFS: the filter=lfs section requires git-lfs to be INSTALLED
+# (`git lfs install`) — with the attributes present but git-lfs missing, adds and
+# checkouts fail with "filter lfs not found". The Technical Director applies this
+# section only if environment detection found git-lfs (otherwise: guide the
+# install per tool_provisioning, or comment the LFS block out until real binary
+# assets arrive — placeholder-first projects can defer it).
+
+# --- Large binary assets via Git LFS ---
+*.psd filter=lfs diff=lfs merge=lfs -text
+*.fbx filter=lfs diff=lfs merge=lfs -text
+*.png filter=lfs diff=lfs merge=lfs -text
+*.jpg filter=lfs diff=lfs merge=lfs -text
+*.jpeg filter=lfs diff=lfs merge=lfs -text
+*.tga filter=lfs diff=lfs merge=lfs -text
+*.exr filter=lfs diff=lfs merge=lfs -text
+*.wav filter=lfs diff=lfs merge=lfs -text
+*.mp3 filter=lfs diff=lfs merge=lfs -text
+*.ogg filter=lfs diff=lfs merge=lfs -text
+*.aif filter=lfs diff=lfs merge=lfs -text
+*.aiff filter=lfs diff=lfs merge=lfs -text
+*.mp4 filter=lfs diff=lfs merge=lfs -text
+*.mov filter=lfs diff=lfs merge=lfs -text
+*.zip filter=lfs diff=lfs merge=lfs -text
+*.unitypackage filter=lfs diff=lfs merge=lfs -text
+
+# --- Default: normalize text, LF in the repo and working tree ---
+* text=auto eol=lf
+
+# --- Unity text-serialized assets: force LF ---
+*.meta  text eol=lf
+*.asset text eol=lf
+*.unity text eol=lf
+*.prefab text eol=lf
+*.mat   text eol=lf
+*.asmdef text eol=lf
+*.asmref text eol=lf
+*.shader text eol=lf
+*.cginc text eol=lf
+*.hlsl  text eol=lf
+*.json  text eol=lf
+*.yml   text eol=lf
+*.yaml  text eol=lf
+*.controller text eol=lf
+*.anim text eol=lf
+*.physicMaterial text eol=lf
+*.physicsMaterial2D text eol=lf

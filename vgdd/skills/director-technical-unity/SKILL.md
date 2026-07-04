@@ -64,14 +64,21 @@ For the **game client**, the scaffold the base requires means concretely:
 - A parameterless `static` build entry point under `Assets/Editor/` for
   `-executeMethod`.
 - **Unity git discipline, set up at scaffold time** (before the first commit):
-  - a Unity-appropriate **`.gitignore`**: ignore `Library/`, `Temp/`, `obj/`,
-    `Logs/`, `UserSettings/`, `MemoryCaptures/`, and the `builds/` output dir;
+  - a Unity-appropriate **`.gitignore`** at the game project's root — **copy
+    `.vgdd/templates/gitignore-unity`** as the starting point (Unity caches, CI
+    temporaries, IDE files, mobile build outputs, agent local settings); adapt
+    only if the project needs it;
+  - a **`.gitattributes`** — **copy `.vgdd/templates/gitattributes-unity`**: LF
+    normalization for Unity's text-serialized assets (avoids cross-OS
+    line-ending churn) plus **Git LFS filters for binary assets**. **Apply the
+    LFS section only if `git-lfs` is installed** (environment detection reports
+    it) — LFS attributes without the tool break adds/checkouts. If absent:
+    guide the install (provisioning L0) or comment the LFS block out until real
+    binary assets arrive (placeholder-first projects can defer it);
   - **track `.meta` files** — Unity generates one per asset and asset references
     break without them. `Assets/**` including every `*.meta` is version-controlled.
     (Learned on a real run: discovering this mid-sprint forces a corrective
     commit; set it up front.)
-  - if the repo may move between OSes, a `.gitattributes` with `* text=auto`
-    avoids line-ending churn.
 - Committed on `develop` per GitFlow.
 
 Backend/multiplayer skeletons the design requires are scaffolded in their own

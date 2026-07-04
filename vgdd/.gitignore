@@ -1,39 +1,14 @@
-# --- VGDD generated project artifacts ---
-# The generated game lives beside the framework. Ignore heavy/derived outputs.
-/builds/
-GameProject/Library/
-GameProject/Temp/
-GameProject/Obj/
-GameProject/Build/
-GameProject/Builds/
-GameProject/Logs/
-GameProject/UserSettings/
-GameProject/MemoryCaptures/
-GameProject/[Aa]ssets/AssetStoreTools*
-GameProject/*.csproj
-GameProject/*.sln
+# VGDD framework repo — pure markdown; keep ignores minimal.
+# (Game-project ignores are NOT here: the Technical Director creates the game
+#  repo's .gitignore at scaffold time from templates/gitignore-unity.)
 
-# --- Unity meta noise (keep .meta in real projects; ignored here in skeleton) ---
-*.pidb
-*.booproj
-*.svd
-*.pdb
-*.mdb
-*.unitypackage
-*.app
-
-# --- Studio runtime state that shouldn't be versioned by default ---
-# (the backlog and studio-bible ARE versioned; logs are not)
-/studio/logs/
-
-# --- OS / editor cruft ---
+# OS / editor cruft
 .DS_Store
 Thumbs.db
 *.swp
+*~
 .idea/
 .vscode/
-*~
 
-# --- Node (for any harness tooling/hooks) ---
+# Node (installer / tooling, future phases)
 node_modules/
-EOF
