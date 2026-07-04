@@ -71,7 +71,7 @@ testing of VGDD itself, layered like the framework's own verification ladder:
   `engineer-rendering`).
 
 **Exit:** a documented eval suite in the repo; the smoke eval is the required
-gate for merging skill changes.
+gate for merging skill changes. *(Design spec: see `docs/EVALS.md`.)*
 
 ## Phase D — Distribution & public release (was option 2)
 
