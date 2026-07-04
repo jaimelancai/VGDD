@@ -80,12 +80,13 @@ Unity -batchmode -runTests -projectPath <proj> \
   that will never appear. (Hit on a real run: a rename's TDD red phase is a
   *compile error*, not a failing assertion — the XML-only watcher waited
   forever.)
-- **Write run artifacts to one ignored directory, one naming scheme.** Send
-  `-testResults` and `-logFile` outputs to a dedicated ignored dir (e.g.
-  `Artifacts/`) with predictable names (`Artifacts/editmode-results.xml`,
-  `Artifacts/editmode.log`), instead of ad-hoc names at the repo root — a real
-  run accumulated a dozen differently-named logs/XMLs at root, making "did the
-  run finish?" ambiguous and dirtying `git status`.
+- **Write run artifacts to `VGDDLogs/` — one ignored directory, one naming
+  scheme.** Send every `-testResults` and `-logFile` output (and build logs)
+  to `VGDDLogs/` with predictable names (`VGDDLogs/editmode-results.xml`,
+  `VGDDLogs/editmode.log`, `VGDDLogs/build-<target>.log`), never ad-hoc names
+  at the repo root — a real run accumulated ~40 differently-named logs/XMLs at
+  root, making "did the run finish?" ambiguous and dirtying `git status`. The
+  directory is gitignored (see the gitignore template).
 - **Watcher shells must not self-match.** `pgrep -f "Unity -batchmode"` matches
   any process whose *command line contains the string* — including the watcher
   shell itself (and its sibling watchers), so the wait loop never exits even
