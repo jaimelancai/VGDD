@@ -82,6 +82,9 @@ Unity -batchmode -runTests -projectPath <proj> -testPlatform EditMode \
       -testResults <results.xml>
 ```
 (prepend `xvfb-run` on headless Linux; PlayMode via `-testPlatform PlayMode`).
+**Red isn't always a failing assertion:** for renames/API changes, the TDD red
+phase is a **compile error** — and Unity then writes *no* results XML, only log
+errors. Verify red via the log/exit code in that case; don't wait on the XML.
 You don't own the invocation — the Tools/Build Engineer and TD do — but write your
 tests so they pass under it: deterministic, no reliance on a display for EditMode
 logic tests.

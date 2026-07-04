@@ -74,6 +74,12 @@ Unity -batchmode -runTests -projectPath <proj> \
   `-runTests` omits it. (Confirmed the hard way on a real Unity 6 run.)
 - EditMode for fast logic tests (the Tier-0 workhorse); PlayMode for runtime.
 - Emits **NUnit-format XML** to `-testResults` — machine-readable for CI gating.
+- **If compilation fails, NO results XML is written** — the runner exits with the
+  errors only in the log. Anything waiting on the XML (a watcher, a CI gate)
+  must therefore also watch the **log and exit code**, or it deadlocks on a file
+  that will never appear. (Hit on a real run: a rename's TDD red phase is a
+  *compile error*, not a failing assertion — the XML-only watcher waited
+  forever.)
 - `xvfb-run` on headless Linux as above.
 
 ## CI wiring
