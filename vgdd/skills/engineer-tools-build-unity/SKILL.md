@@ -89,11 +89,13 @@ Unity -batchmode -runTests -projectPath <proj> \
 - **Watcher shells must not self-match.** `pgrep -f "Unity -batchmode"` matches
   any process whose *command line contains the string* — including the watcher
   shell itself (and its sibling watchers), so the wait loop never exits even
-  after Unity is done. Use self-excluding patterns: `pgrep -x Unity` (exact
-  process name) or the bracket trick `pgrep -f "[U]nity -batchmode"`. And prefer
-  **one** watcher over several concurrent ones — parallel watchers see each
-  other. (Also hit on a real run: four watchers deadlocked on each other while
-  the finished result sat on disk.)
+  after Unity is done. **Best: capture the PID at launch and wait on that exact PID** — a PID-wait
+  cannot self-match or match siblings. If a pattern is unavoidable, use
+  self-excluding forms: `pgrep -x Unity` (exact process name) or the bracket
+  trick `pgrep -f "[U]nity -batchmode"`. And prefer **one** watcher over several
+  concurrent ones — parallel watchers see each other. (All hit on a real run:
+  four pattern-watchers deadlocked on each other — including the launcher, so
+  the run never even started; the PID-keyed rewrite resolved it.)
 - `xvfb-run` on headless Linux as above.
 
 ## CI wiring
